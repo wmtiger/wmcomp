@@ -1,16 +1,25 @@
 package com.wm.assets 
 {
+	import com.wm.utils.HashTable;
 	/**
 	 * 皮肤资源
 	 * @author wmTiger
 	 */
 	public class Assets 
 	{
+		[Embed(source = "assets.swf", symbol = "btn_normal_1")]
+		private const btn_normal_1:Class;
+		
+		[Embed(source = "assets.swf", symbol = "window_1")]
+		private const window_1:Class;
+		
 		private static var _instance:Assets;
+		
+		private var _table:HashTable;
 		
 		public function Assets() 
 		{
-			
+			_table = new HashTable();
 		}
 		
 		static public function get instance():Assets 
@@ -23,23 +32,17 @@ package com.wm.assets
 		}
 		
 		/**
-		 * 获取皮肤，返回DisplayObject
+		 * 获取皮肤，返回DisplayObject,自己注意好fla里面资源的类型定义
 		 * @param	skin
 		 * @return
 		 */
 		public function getSkin(skin:String):*
 		{
-			return new (this[skin])();
-		}
-		
-		/**
-		 * 返回皮肤的类
-		 * @param	skin
-		 * @return
-		 */
-		public function getSkinClass(skin:String):Class
-		{
-			return this[skin];
+			if (!_table.isHas(skin)) 
+			{
+				_table.add(skin, new (this[skin])());
+			}
+			return _table.getValue(skin);
 		}
 		
 	}

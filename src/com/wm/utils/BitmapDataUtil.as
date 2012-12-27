@@ -81,6 +81,7 @@ package com.wm.utils
 				point.y = destHeight - right;
 				destBmd.copyPixels(sourceBmd, rect, point);
 			}
+			return destBmd;
 		}
 		
 		/**

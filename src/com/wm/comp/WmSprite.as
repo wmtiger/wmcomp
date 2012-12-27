@@ -1,9 +1,7 @@
 package com.wm.comp 
 {
-	import com.wm.assets.Assets;
 	import com.wm.base.IDispose;
 	import flash.display.BitmapData;
-	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	
 	/**
@@ -12,7 +10,7 @@ package com.wm.comp
 	 */
 	public class WmSprite extends Sprite implements IDispose
 	{
-		private var _bgBmd:BitmapData;//底图的位图数据
+		protected var _bgBmd:BitmapData;//底图的位图数据
 		private var _style:String;
 		
 		public function WmSprite() 
@@ -24,8 +22,7 @@ package com.wm.comp
 		//画背景图
 		protected function drawBg():void
 		{
-			//var disp:DisplayObject = Assets.instance.getSkin(_style) as DisplayObject;
-			//var bmd:BitmapData = new BitmapData(disp.width, disp.height, true, 0);
+			
 		}
 		
 		public function get style():String 
@@ -44,7 +41,12 @@ package com.wm.comp
 		
 		public function dispose():void 
 		{
-			
+			_style = null;
+			if (_bgBmd) 
+			{
+				_bgBmd.dispose();
+				_bgBmd = null;
+			}
 		}
 		
 	}
