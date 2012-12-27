@@ -1,6 +1,5 @@
 package com.wm.comp 
 {
-	import com.wm.assets.Assets;
 	import com.wm.utils.BitmapDataUtil;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -11,15 +10,12 @@ package com.wm.comp
 	 */
 	public class WmBtn extends WmSprite 
 	{
-		private var _btnWidth:int;
-		private var _btnHeight:int;
 		private var _clickHandler:Function;
 		private var _enabled:Boolean;
 		
 		public function WmBtn(w:int = 73, h:int = 19) 
 		{
-			_btnWidth = w;
-			_btnHeight = h;
+			setWH(w, h);
 			super();
 			init();
 		}
@@ -44,36 +40,9 @@ package com.wm.comp
 			}
 		}
 		
-		override protected function drawBg():void 
+		override protected function getBgBmd(bmp:Bitmap):BitmapData 
 		{
-			var bmp:Bitmap = Assets.instance.getSkin(style) as Bitmap;
-			_bgBmd = BitmapDataUtil.getBitmapData3Grid(bmp.bitmapData, _btnWidth, _btnHeight, "lr", 20, 20);
-			drawGraphic(_bgBmd);
-		}
-		
-		private function drawGraphic(bmd:BitmapData = null):void
-		{
-			this.graphics.clear();
-			if (bmd) 
-			{
-				this.graphics.beginBitmapFill(bmd, null, false);
-			}
-			else
-			{
-				this.graphics.beginFill(0xc0d0f0);
-			}
-			this.graphics.drawRect(0, 0, _btnWidth, _btnHeight);
-			this.graphics.endFill();
-		}
-		
-		public function get btnWidth():int 
-		{
-			return _btnWidth;
-		}
-		
-		public function get btnHeight():int 
-		{
-			return _btnHeight;
+			return BitmapDataUtil.getBitmapData3Grid(bmp.bitmapData, sprWidth, sprHeight);
 		}
 		
 		public function get enabled():Boolean 

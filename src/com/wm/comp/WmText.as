@@ -16,6 +16,8 @@ package com.wm.comp
 		private var _right:int;
 		private var _top:int;
 		private var _bottom:int;
+		private var _autoTextWidth:Boolean;//是否自动刷新文本宽
+		private var _autoTextHeight:Boolean;//是否自动刷新文本高
 		
 		public function WmText(txt:String = "", x:int = 0, y:int = 0, w:int = 100, h:int = 22,
 				font:String = "SimSun", size:Object = 14, color:Object = null,
@@ -27,6 +29,8 @@ package com.wm.comp
 			this.y = y;
 			this.width = w;
 			this.height = h;
+			_autoTextWidth = false;//默认不刷新宽
+			_autoTextHeight = true;
 			this.text = txt;
 		}
 		
@@ -35,10 +39,23 @@ package com.wm.comp
 			var b:Boolean = this.text == "" ? true : false;//之前文本框是否是空字符
 			super.text = value;
 			b ? setFormat(_fmt) : null;
+			flushAutoText();
+		}
+		
+		private function flushAutoText():void
+		{
+			if (autoTextWidth) 
+			{
+				this.width = this.textWidth + 4;
+			}
+			if (_autoTextHeight) 
+			{
+				this.height = this.textHeight + 4;
+			}
 		}
 		
 		/**
-		* 在左对齐的情况下，设置是否自动计算宽高
+		* 在左对齐的情况下，刷新显示并且设置此次更改是否自动计算宽高
 		* @param     txt
 		* @param     autoWidth
 		* @param     autoHeight
@@ -94,6 +111,27 @@ package com.wm.comp
 			if (fmtObject["leading"])
 				_fmt.leading = fmtObject["leading"];
 			this.setTextFormat(_fmt);
+			flushAutoText();
+		}
+		
+		public function get autoTextHeight():Boolean 
+		{
+			return _autoTextHeight;
+		}
+		
+		public function set autoTextHeight(value:Boolean):void 
+		{
+			_autoTextHeight = value;
+		}
+		
+		public function get autoTextWidth():Boolean 
+		{
+			return _autoTextWidth;
+		}
+		
+		public function set autoTextWidth(value:Boolean):void 
+		{
+			_autoTextWidth = value;
 		}
 		
 		public function reflush():void

@@ -10,10 +10,12 @@ package com.wm.comp
 		private var _def:String = "";
 		
 		public function WmInput(txt:String = "", x:int = 0, y:int = 0, w:int = 100, h:int = 22,
-			font:String = null, size:Object = 14, color:Object = null, align:String = null, bold:Object = null) 
+			font:String = null, size:Object = 14, color:Object = null,
+			align:String = null, bold:Object = null) 
 		{
 			super(txt, x, y, w, h, font, size, color, align, bold);
 			this.type = "input";
+			def = "在此输入";
 			this.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownTxt);
 		}
 		
@@ -33,6 +35,10 @@ package com.wm.comp
 		public function set def(value:String):void 
 		{
 			_def = value;
+			if (this.text == "") 
+			{
+				setText(_def, false, true);
+			}
 		}
 		
 		override public function dispose():void 

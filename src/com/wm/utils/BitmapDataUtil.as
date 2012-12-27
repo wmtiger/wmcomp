@@ -87,8 +87,7 @@ package com.wm.utils
 		}
 		
 		/**
-		 * 生成格式化好的位图9宫格，左上角为第一宫，正上方为第二宫，依次类推，右下角为第四宫，\n
-		 * 注意只能生成比基本图大的位图数据
+		 * 生成格式化好的位图9宫格，左上角为第一宫，正上方为第二宫，依次类推，右下角为第四宫
 		 * @param bmd		传入一个BitmapData，最小长宽为5
 		 * @param width		需要生成的BitmapData的长度
 		 * @param height	需要生成的BitmapData的宽度

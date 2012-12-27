@@ -7,20 +7,23 @@ package com.wm.assets
 	 */
 	public class Assets 
 	{
-		[Embed(source = "assets.swf", symbol = "btn_normal_1")]
-		private const btn_normal_1:Class;
+		[Embed(source = "assets.swf", symbol = "btn_def_normal_1")]
+		private const btn_def_normal_1:Class;
 		
-		[Embed(source = "assets.swf", symbol = "btn_normal_close_1")]
-		private const btn_normal_close_1:Class;
+		[Embed(source = "assets.swf", symbol = "btn_close_normal_1")]
+		private const btn_close_normal_1:Class;
 		
-		[Embed(source = "assets.swf", symbol = "btn_normal_max_1")]
-		private const btn_normal_max_1:Class;
+		[Embed(source = "assets.swf", symbol = "btn_max_normal_1")]
+		private const btn_max_normal_1:Class;
 		
-		[Embed(source = "assets.swf", symbol = "btn_normal_min_1")]
-		private const btn_normal_min_1:Class;
+		[Embed(source = "assets.swf", symbol = "btn_min_normal_1")]
+		private const btn_min_normal_1:Class;
 		
-		[Embed(source = "assets.swf", symbol = "window_1")]
-		private const window_1:Class;
+		[Embed(source = "assets.swf", symbol = "window_def_1")]
+		private const window_def_1:Class;
+		
+		[Embed(source = "assets.swf", symbol = "txt_input_normal_1")]
+		private const txt_input_normal_1:Class;
 		
 		private static var _instance:Assets;
 		

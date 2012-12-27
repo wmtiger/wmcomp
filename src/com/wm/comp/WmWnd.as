@@ -1,17 +1,16 @@
 package com.wm.comp 
 {
-	import com.wm.assets.Assets;
+	import com.wm.base.IDispose;
 	import com.wm.utils.BitmapDataUtil;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.display.DisplayObject;
 	/**
 	 * 窗口
 	 * @author wmtiger
 	 */
 	public class WmWnd extends WmSprite 
 	{
-		private var _wndWidth:int;
-		private var _wndHeight:int;
 		private var _pivotX:int;//实际的注册点
 		private var _pivotY:int;
 		private var _title:String;
@@ -21,29 +20,33 @@ package com.wm.comp
 		private var _minBtn:WmBtn;//最小化按钮
 		private var _maxable:Boolean;//是否可以最大化
 		private var _minable:Boolean;//是否可以最小化
+		private var _content:WmSprite;//内容
+		private var _contentLeft:int;//内容面板的位置
+		private var _contentRight:int;
+		private var _contentTop:int;
+		private var _contentBottom:int;
 		
-		public function WmWnd(title:String = "",w:int = 480, h:int = 300) 
+		public function WmWnd(title:String = "", w:int = 480, h:int = 360) 
 		{
 			_title = title;
-			_wndWidth = w;
-			_wndHeight = h;
+			setWH(w, h);
 			init();
 			super();
 		}
 		
 		protected function init():void 
 		{
-			_pivotX = 15;
-			_pivotY = 12;
+			_pivotX = 16;
+			_pivotY = 13;
 			drawGraphic();
-			_titleTxt = new WmText(_title, _pivotX + 8, _pivotY + 8, _wndWidth - _pivotX * 2 - 8, 22, "SimSun", 16);
+			_titleTxt = new WmText(_title, _pivotX + 8, _pivotY + 8, sprWidth - _pivotX * 2 - 8, 22, "SimSun", 16);
 			addChild(_titleTxt);
 			_titleTxt.selectable = false;
 			
 			_closeBtn = new WmBtn(64, 36);
-			_closeBtn.style = "btn_normal_close_1";
+			_closeBtn.style = "btn_close_normal_1";
 			addChild(_closeBtn);
-			_closeBtn.right = 17;
+			_closeBtn.right = 16;
 			_closeBtn.top = 5;
 			_closeBtn.clickHandler = function ():void 
 			{
@@ -51,38 +54,86 @@ package com.wm.comp
 			}
 			
 			_maxBtn = new WmBtn(43, 36);
-			_maxBtn.style = "btn_normal_max_1";
+			_maxBtn.style = "btn_max_normal_1";
 			addChild(_maxBtn);
-			_maxBtn.right = 65;
+			_maxBtn.right = 64;
 			_maxBtn.top = 5;
+			_maxBtn.clickHandler = function ():void 
+			{
+				maxWnd();
+			}
+			maxable = false;
 			
 			_minBtn = new WmBtn(44, 36);
-			_minBtn.style = "btn_normal_min_1";
+			_minBtn.style = "btn_min_normal_1";
 			addChild(_minBtn);
-			_minBtn.right = 92;
+			_minBtn.right = 91;
 			_minBtn.top = 5;
+			_minBtn.clickHandler = function ():void 
+			{
+				minWnd();
+			}
+			minable = false;
+			
+			setDefStyle();
+			
+			setContent();
 		}
 		
-		override protected function drawBg():void 
+		//皮肤素材不同，会导致_contentLeft等参数不同，需要覆盖重写
+		protected function setContent():void 
 		{
-			var bmp:Bitmap = Assets.instance.getSkin(style) as Bitmap;
-			_bgBmd = BitmapDataUtil.getBitmapData9Grid(bmp.bitmapData, _wndWidth, _wndHeight, 30, 30, 90, 30);
-			drawGraphic(_bgBmd);
+			_contentLeft = _contentRight = 24;
+			_contentTop = 45;
+			_contentBottom = 25;
+			_content = new WmSprite();
+			addChild(_content);
+			_content.left = _contentLeft;
+			_content.top = _contentTop;
+			flushWH();
 		}
 		
-		private function drawGraphic(bmd:BitmapData = null):void
+		private function flushWH():void
 		{
-			this.graphics.clear();
-			if (bmd) 
+			if (_content) 
 			{
-				this.graphics.beginBitmapFill(bmd, null, false);
+				_content.setWH(sprWidth - _contentLeft - _contentRight, 
+						sprHeight - _contentTop - _contentBottom);
 			}
-			else
+		}
+		
+		override public function setWH(w:int, h:int):void 
+		{
+			super.setWH(w, h);
+			flushWH();
+		}
+		
+		//如果要自定义窗体，则将此方法覆盖为空方法，再行修改style
+		protected function setDefStyle():void
+		{
+			style = "window_def_1";
+		}
+		
+		override protected function getBgBmd(bmp:Bitmap):BitmapData 
+		{
+			return BitmapDataUtil.getBitmapData9Grid(bmp.bitmapData, sprWidth, sprHeight, 30, 30, 90, 30);
+		}
+		
+		public function addElement(disp:DisplayObject, x:int = 0, y:int = 0):void
+		{
+			_content.addChild(disp);
+			disp.x = x;
+			disp.y = y;
+		}
+		
+		public function removeElement(disp:DisplayObject, dispose:Boolean = false):void
+		{
+			_content.removeChild(disp);
+			if (dispose) 
 			{
-				this.graphics.beginFill(0, 0);
+				disp["dispose"]();
+				disp = null;
 			}
-			this.graphics.drawRect(0, 0, _wndWidth, _wndHeight);
-			this.graphics.endFill();
 		}
 		
 		public function closeWnd():void
@@ -98,6 +149,28 @@ package com.wm.comp
 		public function minWnd():void
 		{
 			
+		}
+		
+		public function get minable():Boolean 
+		{
+			return _minable;
+		}
+		
+		public function set minable(value:Boolean):void 
+		{
+			_minable = value;
+			_minBtn.enabled = _minable;
+		}
+		
+		public function get maxable():Boolean 
+		{
+			return _maxable;
+		}
+		
+		public function set maxable(value:Boolean):void 
+		{
+			_maxable = value;
+			_maxBtn.enabled = _maxable;
 		}
 		
 		override public function dispose():void 
@@ -127,29 +200,12 @@ package com.wm.comp
 				_minBtn.dispose();
 				_minBtn = null;
 			}
+			if (_content) 
+			{
+				_content.dispose();
+				_content = null;
+			}
 			super.dispose();
-		}
-		
-		public function get minable():Boolean 
-		{
-			return _minable;
-		}
-		
-		public function set minable(value:Boolean):void 
-		{
-			_minable = value;
-			_minBtn.enabled = _minable;
-		}
-		
-		public function get maxable():Boolean 
-		{
-			return _maxable;
-		}
-		
-		public function set maxable(value:Boolean):void 
-		{
-			_maxable = value;
-			_maxBtn.enabled = _maxable;
 		}
 		
 	}
