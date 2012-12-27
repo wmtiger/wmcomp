@@ -45,6 +45,7 @@ package com.wm.utils
 			{
 				// grid 1
 				rect.width = left;
+				rect.height = destHeight;
 				destBmd.copyPixels(sourceBmd, rect, point);
 				// grid 2
 				rect.width = sourceBmd.width - left - right;
@@ -64,7 +65,8 @@ package com.wm.utils
 			else
 			{
 				// grid 1
-				rect.height = destHeight;
+				rect.width = destWidth;
+				rect.height = left;
 				destBmd.copyPixels(sourceBmd, rect, point);
 				// grid 2
 				rect.height = sourceBmd.height - left - right;
@@ -99,6 +101,21 @@ package com.wm.utils
 		public static function getBitmapData9Grid(sourceBmd:BitmapData, destWidth:int, destHeight:int, 
 				left:int = 20, right:int = 20, top:int = 20, bottom:int = 20):BitmapData
 		{
+			//计算3宫格方式和9宫格方式，哪个计算的次数更多，相应的选择计算次数少的方法
+			var count9Grid:int = 0;//9宫格方式的计算次数
+			count9Grid += (WMath.ceil(destWidth / (sourceBmd.width - left - right)) * 2);//2 & 8
+			count9Grid += (WMath.ceil(destHeight / (sourceBmd.height - top - bottom)) * 2);//4 & 6
+			count9Grid += (WMath.ceil(destHeight / (sourceBmd.height - top - bottom)) * WMath.ceil(destWidth / (sourceBmd.width - left - right)));//5
+			//trace("9 time", count9Grid);
+			var count3Grid:int = 0;//3宫格方式的计算次数
+			count3Grid += (WMath.ceil(destWidth / (sourceBmd.width - left - right)) * WMath.ceil(destHeight / (sourceBmd.height - top - bottom)));
+			//trace("3 time", count3Grid);
+			if (count9Grid > count3Grid) 
+			{
+				var test:BitmapData = getBitmapData3Grid(sourceBmd, destWidth, sourceBmd.height, "lr", left, right);
+				return getBitmapData3Grid(test, test.width, destHeight, "tb", top, bottom);
+			}
+			
 			if(sourceBmd == null || (sourceBmd.width < 5 && sourceBmd.height < 5))
 			{
 				throw new Error("输入的位图数据为空或格式不对");

@@ -10,6 +10,15 @@ package com.wm.assets
 		[Embed(source = "assets.swf", symbol = "btn_normal_1")]
 		private const btn_normal_1:Class;
 		
+		[Embed(source = "assets.swf", symbol = "btn_normal_close_1")]
+		private const btn_normal_close_1:Class;
+		
+		[Embed(source = "assets.swf", symbol = "btn_normal_max_1")]
+		private const btn_normal_max_1:Class;
+		
+		[Embed(source = "assets.swf", symbol = "btn_normal_min_1")]
+		private const btn_normal_min_1:Class;
+		
 		[Embed(source = "assets.swf", symbol = "window_1")]
 		private const window_1:Class;
 		

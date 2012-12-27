@@ -18,7 +18,7 @@ package com.wm.comp
 		private var _bottom:int;
 		
 		public function WmText(txt:String = "", x:int = 0, y:int = 0, w:int = 100, h:int = 22,
-				font:String = null, size:Object = 14, color:Object = null,
+				font:String = "SimSun", size:Object = 14, color:Object = null,
 				align:String = null, bold:Object = null) 
 		{
 			super();
@@ -104,13 +104,6 @@ package com.wm.comp
 			top = _top;
 		}
 		
-		/* INTERFACE wm.base.IDispose */
-		
-		public function dispose():void
-		{
-			_fmt = null;
-		}
-		
 		/* INTERFACE com.wm.base.IPosition */
 		
 		public function set left(value:Object):void 
@@ -147,6 +140,13 @@ package com.wm.comp
 			{
 				this.y = this.parent.height - this.height - _bottom;
 			}
+		}
+		
+		/* INTERFACE wm.base.IDispose */
+		
+		public function dispose():void
+		{
+			_fmt = null;
 		}
 		
 	}
