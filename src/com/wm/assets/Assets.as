@@ -37,6 +37,13 @@ package com.wm.assets
 		public const txt_def_over:Class;
 		[Embed(source = "assets.swf", symbol = "txt_def_focusIn")]
 		public const txt_def_focusIn:Class;
+		//chkbox_def
+		[Embed(source = "assets.swf", symbol = "chkbox_def_normal")]
+		public const chkbox_def_normal:Class;
+		[Embed(source = "assets.swf", symbol = "chkbox_def_over")]
+		public const chkbox_def_over:Class;
+		[Embed(source = "assets.swf", symbol = "chkbox_def_down")]
+		public const chkbox_def_over:Class;
 		
 		private static var _instance:Assets;
 		
@@ -59,7 +66,7 @@ package com.wm.assets
 		/**
 		 * 通过具体类型获取单个具体皮肤，返回DisplayObject,自己注意好fla里面资源的类型定义
 		 * @param	style		style名
-		 * @param	type		style类型:over, down, normal, focusIn 中的一个
+		 * @param	type		style类型:over, down, normal, focusIn, selected 中的一个
 		 * @return
 		 */
 		public function getSkinByType(style:String, type:String = "normal"):*
@@ -67,7 +74,6 @@ package com.wm.assets
 			var key:String = style + "_" + type;
 			if (!_table.isHas(key)) 
 			{
-				//trace(this.hasOwnProperty(key), key);
 				if (this.hasOwnProperty(key)) 
 				{
 					_table.add(key, new (this[key])());
@@ -77,7 +83,6 @@ package com.wm.assets
 					return null;
 				}
 			}
-			//trace(_table.getValue(key));
 			return _table.getValue(key);
 		}
 		

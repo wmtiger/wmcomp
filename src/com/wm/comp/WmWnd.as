@@ -184,6 +184,26 @@ package com.wm.comp
 			_maxBtn.enabled = _maxable;
 		}
 		
+		public function get pivotX():int 
+		{
+			return _pivotX;
+		}
+		
+		public function set pivotX(value:int):void 
+		{
+			_pivotX = value;
+		}
+		
+		public function get pivotY():int 
+		{
+			return _pivotY;
+		}
+		
+		public function set pivotY(value:int):void 
+		{
+			_pivotY = value;
+		}
+		
 		override public function dispose():void 
 		{
 			super.dispose();
