@@ -31,6 +31,7 @@ package com.wm.comp
 			this.height = h;
 			_autoTextWidth = false;//默认不刷新宽
 			_autoTextHeight = true;
+			this.multiline = false;//默认单行文本
 			this.text = txt;
 		}
 		

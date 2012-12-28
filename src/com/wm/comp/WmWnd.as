@@ -9,7 +9,7 @@ package com.wm.comp
 	 * 窗口
 	 * @author wmtiger
 	 */
-	public class WmWnd extends WmSprite 
+	public class WmWnd extends WmComp 
 	{
 		private var _pivotX:int;//实际的注册点
 		private var _pivotY:int;
@@ -20,7 +20,7 @@ package com.wm.comp
 		private var _minBtn:WmBtn;//最小化按钮
 		private var _maxable:Boolean;//是否可以最大化
 		private var _minable:Boolean;//是否可以最小化
-		private var _content:WmSprite;//内容
+		private var _content:WmComp;//内容
 		private var _contentLeft:int;//内容面板的位置
 		private var _contentRight:int;
 		private var _contentTop:int;
@@ -29,22 +29,25 @@ package com.wm.comp
 		public function WmWnd(title:String = "", w:int = 480, h:int = 360) 
 		{
 			_title = title;
-			setWH(w, h);
-			init();
-			super();
+			super(w, h);
 		}
 		
-		protected function init():void 
+		override protected function initComp(w:int, h:int):void 
+		{
+			setWH(w, h, true);//初始化界面大小的同时画出界面
+			initWnd();
+		}
+		
+		protected function initWnd():void 
 		{
 			_pivotX = 16;
 			_pivotY = 13;
-			drawGraphic();
-			_titleTxt = new WmText(_title, _pivotX + 8, _pivotY + 8, sprWidth - _pivotX * 2 - 8, 22, "SimSun", 16);
+			_titleTxt = new WmText(_title, _pivotX + 9, _pivotY + 9, compWidth - _pivotX * 2 - 8);
 			addChild(_titleTxt);
 			_titleTxt.selectable = false;
 			
 			_closeBtn = new WmBtn(64, 36);
-			_closeBtn.style = "btn_close_normal_1";
+			_closeBtn.style = "btn_close";
 			addChild(_closeBtn);
 			_closeBtn.right = 16;
 			_closeBtn.top = 5;
@@ -54,7 +57,7 @@ package com.wm.comp
 			}
 			
 			_maxBtn = new WmBtn(43, 36);
-			_maxBtn.style = "btn_max_normal_1";
+			_maxBtn.style = "btn_max";
 			addChild(_maxBtn);
 			_maxBtn.right = 64;
 			_maxBtn.top = 5;
@@ -65,7 +68,7 @@ package com.wm.comp
 			maxable = false;
 			
 			_minBtn = new WmBtn(44, 36);
-			_minBtn.style = "btn_min_normal_1";
+			_minBtn.style = "btn_min";
 			addChild(_minBtn);
 			_minBtn.right = 91;
 			_minBtn.top = 5;
@@ -86,37 +89,45 @@ package com.wm.comp
 			_contentLeft = _contentRight = 24;
 			_contentTop = 45;
 			_contentBottom = 25;
-			_content = new WmSprite();
+			_content = new WmComp();
 			addChild(_content);
 			_content.left = _contentLeft;
 			_content.top = _contentTop;
 			flushWH();
 		}
 		
+		public function get content():WmComp
+		{
+			return _content;
+		}
+		
 		private function flushWH():void
 		{
 			if (_content) 
 			{
-				_content.setWH(sprWidth - _contentLeft - _contentRight, 
-						sprHeight - _contentTop - _contentBottom);
+				_content.setWH(compWidth - _contentLeft - _contentRight, 
+						compHeight - _contentTop - _contentBottom, true);
 			}
 		}
 		
-		override public function setWH(w:int, h:int):void 
+		override public function setWH(w:int, h:int, draw:Boolean = false):void 
 		{
-			super.setWH(w, h);
-			flushWH();
+			super.setWH(w, h, draw);
+			if (draw) 
+			{
+				flushWH();
+			}
 		}
 		
 		//如果要自定义窗体，则将此方法覆盖为空方法，再行修改style
 		protected function setDefStyle():void
 		{
-			style = "window_def_1";
+			style = "wnd_def";
 		}
 		
 		override protected function getBgBmd(bmp:Bitmap):BitmapData 
 		{
-			return BitmapDataUtil.getBitmapData9Grid(bmp.bitmapData, sprWidth, sprHeight, 30, 30, 90, 30);
+			return BitmapDataUtil.getBitmapData9Grid(bmp.bitmapData, compWidth, compHeight, 30, 30, 90, 30);
 		}
 		
 		public function addElement(disp:DisplayObject, x:int = 0, y:int = 0):void
@@ -175,10 +186,7 @@ package com.wm.comp
 		
 		override public function dispose():void 
 		{
-			if (this.parent) 
-			{
-				this.parent.removeChild(this);
-			}
+			super.dispose();
 			_title = null;
 			if (_titleTxt) 
 			{
@@ -205,7 +213,6 @@ package com.wm.comp
 				_content.dispose();
 				_content = null;
 			}
-			super.dispose();
 		}
 		
 	}

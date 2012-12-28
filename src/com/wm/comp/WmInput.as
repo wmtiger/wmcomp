@@ -21,9 +21,9 @@ package com.wm.comp
 		
 		private function onMouseDownTxt(e:MouseEvent):void 
 		{
-			if (this.text == _def) 
+			if (this.text == def) 
 			{
-				this.setSelection(0, _def.length);
+				this.setSelection(0, def.length);
 			}
 		}
 		
@@ -37,7 +37,7 @@ package com.wm.comp
 			_def = value;
 			if (this.text == "") 
 			{
-				setText(_def, false, true);
+				setText(_def, false, false);
 			}
 		}
 		

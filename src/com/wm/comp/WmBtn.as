@@ -8,24 +8,67 @@ package com.wm.comp
 	 * 简单图形按钮,默认的w和h是根据资源中来的，如果有其他的资源，自己修改
 	 * @author wmtiger
 	 */
-	public class WmBtn extends WmSprite 
+	public class WmBtn extends WmComp 
 	{
 		private var _clickHandler:Function;
 		private var _enabled:Boolean;
 		
 		public function WmBtn(w:int = 73, h:int = 19) 
 		{
-			setWH(w, h);
-			super();
+			super(w, h);
+		}
+		
+		override protected function initComp(w:int, h:int):void 
+		{
+			setWH(w, h, true);
 			init();
 		}
 		
 		protected function init():void 
 		{
 			enabled = true;
-			drawGraphic();
 			this.mouseChildren = false;
 			_evtUtil.addEventListener(this, MouseEvent.CLICK, onClick);
+			_evtUtil.addEventListener(this, MouseEvent.MOUSE_OVER, onMOver);
+			_evtUtil.addEventListener(this, MouseEvent.MOUSE_OUT, onMOut);
+			_evtUtil.addEventListener(this, MouseEvent.MOUSE_DOWN, onMDown);
+			_evtUtil.addEventListener(this, MouseEvent.MOUSE_UP, onMUp);
+		}
+		
+		private function onMUp(e:MouseEvent):void 
+		{
+			if (!enabled) 
+			{
+				return;
+			}
+			setCrtBgBmd("over");
+		}
+		
+		private function onMOut(e:MouseEvent):void 
+		{
+			if (!enabled) 
+			{
+				return;
+			}
+			setCrtBgBmd("normal");
+		}
+		
+		private function onMDown(e:MouseEvent):void 
+		{
+			if (!enabled) 
+			{
+				return;
+			}
+			setCrtBgBmd("down");
+		}
+		
+		private function onMOver(e:MouseEvent):void 
+		{
+			if (!enabled) 
+			{
+				return;
+			}
+			setCrtBgBmd("over");
 		}
 		
 		private function onClick(e:MouseEvent):void 
@@ -42,7 +85,7 @@ package com.wm.comp
 		
 		override protected function getBgBmd(bmp:Bitmap):BitmapData 
 		{
-			return BitmapDataUtil.getBitmapData3Grid(bmp.bitmapData, sprWidth, sprHeight);
+			return BitmapDataUtil.getBitmapData3Grid(bmp.bitmapData, compWidth, compHeight);
 		}
 		
 		public function get enabled():Boolean 
@@ -72,8 +115,8 @@ package com.wm.comp
 		
 		override public function dispose():void 
 		{
-			_clickHandler = null;
 			super.dispose();
+			_clickHandler = null;
 		}
 		
 	}

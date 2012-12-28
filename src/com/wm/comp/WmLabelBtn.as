@@ -27,8 +27,8 @@ package com.wm.comp
 		public function set label(txt:String):void
 		{
 			_label.setText(_txt, true, true);
-			_label.x = sprWidth - _label.width >> 1;
-			_label.y = sprHeight - _label.height >> 1;
+			_label.x = compWidth - _label.width >> 1;
+			_label.y = compHeight - _label.height >> 1;
 		}
 		
 		override public function dispose():void 
