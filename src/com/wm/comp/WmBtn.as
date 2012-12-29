@@ -21,21 +21,12 @@ package com.wm.comp
 		override protected function initComp(w:int, h:int):void 
 		{
 			setWH(w, h, true);
-			init();
-		}
-		
-		protected function init():void 
-		{
+			
 			enabled = true;
 			this.mouseChildren = false;
-			_evtUtil.addEventListener(this, MouseEvent.CLICK, onClick);
-			_evtUtil.addEventListener(this, MouseEvent.MOUSE_OVER, onMOver);
-			_evtUtil.addEventListener(this, MouseEvent.MOUSE_OUT, onMOut);
-			_evtUtil.addEventListener(this, MouseEvent.MOUSE_DOWN, onMDown);
-			_evtUtil.addEventListener(this, MouseEvent.MOUSE_UP, onMUp);
 		}
 		
-		private function onMUp(e:MouseEvent):void 
+		override protected function onCompMUp(e:MouseEvent):void 
 		{
 			if (!enabled) 
 			{
@@ -44,7 +35,7 @@ package com.wm.comp
 			setCrtBgBmd("over");
 		}
 		
-		private function onMOut(e:MouseEvent):void 
+		override protected function onCompMOut(e:MouseEvent):void 
 		{
 			if (!enabled) 
 			{
@@ -53,7 +44,7 @@ package com.wm.comp
 			setCrtBgBmd("normal");
 		}
 		
-		private function onMDown(e:MouseEvent):void 
+		override protected function onCompMDown(e:MouseEvent):void 
 		{
 			if (!enabled) 
 			{
@@ -62,7 +53,7 @@ package com.wm.comp
 			setCrtBgBmd("down");
 		}
 		
-		private function onMOver(e:MouseEvent):void 
+		override protected function onCompMOver(e:MouseEvent):void 
 		{
 			if (!enabled) 
 			{
@@ -71,7 +62,7 @@ package com.wm.comp
 			setCrtBgBmd("over");
 		}
 		
-		private function onClick(e:MouseEvent):void 
+		override protected function onCompClick(e:MouseEvent):void 
 		{
 			if (!enabled) 
 			{

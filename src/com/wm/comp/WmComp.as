@@ -6,26 +6,23 @@ package com.wm.comp
 	import com.wm.utils.EventListenerUtil;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.events.MouseEvent;
 	/**
 	 * 组件基类
 	 * @author wmtiger
 	 */
-	public class WmComp extends WmSprite implements IPosition
+	public class WmComp extends WmSprite
 	{
-		private static const STYLE_LIST:Array = ["normal", "over", "down", "focusIn"];//不要dispose
+		protected static const STYLE_LIST:Array = ["normal", "over", "down", "focusIn"];//不要dispose
 		
 		protected var _evtUtil:EventListenerUtil;
 		protected var _normalBmd:BitmapData;//底图的位图数据-默认状态
 		protected var _overBmd:BitmapData;//底图的位图数据-鼠标滑过
 		protected var _downBmd:BitmapData;//底图的位图数据-鼠标按下
 		protected var _focusInBmd:BitmapData;//底图的位图数据-焦点在其中
-		protected var _bgBmd:BitmapData;//底图的位图数据，实际显示用的是这个
 		
-		private var _style:String;
-		private var _left:int;
-		private var _right:int;
-		private var _top:int;
-		private var _bottom:int;
+		protected var _style:String;
+		
 		private var _compWidth:int;//当前的spr的宽
 		private var _compHeight:int;//当前的spr的高
 		
@@ -34,11 +31,46 @@ package com.wm.comp
 			_evtUtil = new EventListenerUtil();
 			super();
 			initComp(w, h);
+			initEvt();
+		}
+		
+		protected function initEvt():void 
+		{
+			_evtUtil.addEventListener(this, MouseEvent.CLICK, onCompClick);
+			_evtUtil.addEventListener(this, MouseEvent.MOUSE_OVER, onCompMOver);
+			_evtUtil.addEventListener(this, MouseEvent.MOUSE_OUT, onCompMOut);
+			_evtUtil.addEventListener(this, MouseEvent.MOUSE_DOWN, onCompMDown);
+			_evtUtil.addEventListener(this, MouseEvent.MOUSE_UP, onCompMUp);
+		}
+		
+		protected function onCompMUp(e:MouseEvent):void 
+		{
+			setCrtBgBmd("over");
+		}
+		
+		protected function onCompMOut(e:MouseEvent):void 
+		{
+			setCrtBgBmd("normal");
+		}
+		
+		protected function onCompMDown(e:MouseEvent):void 
+		{
+			setCrtBgBmd("down");
+		}
+		
+		protected function onCompMOver(e:MouseEvent):void 
+		{
+			setCrtBgBmd("over");
+		}
+		
+		protected function onCompClick(e:MouseEvent):void 
+		{
+			
 		}
 		
 		protected function initComp(w:int, h:int):void 
 		{
-			setWH(w, h);
+			setWH(w, h);//此处这么写，没有画出默认背景，安全用的。继承的方法如有需要则各自重写
 		}
 		
 		//画背景图
@@ -85,7 +117,7 @@ package com.wm.comp
 			return null;
 		}
 		
-		private function drawGraphic(bmd:BitmapData = null):void
+		protected function drawGraphic(bmd:BitmapData = null):void
 		{
 			this.graphics.clear();
 			if (bmd) 
@@ -98,7 +130,7 @@ package com.wm.comp
 				{
 					return;
 				}
-				this.graphics.beginFill(0xff0000, 0);
+				this.graphics.beginFill(0xff0000, 0.1);
 			}
 			this.graphics.drawRect(0, 0, _compWidth, _compHeight);
 			this.graphics.endFill();
@@ -129,52 +161,6 @@ package com.wm.comp
 			_style = value;
 			
 			drawBg();
-		}
-		
-		public function reflush():void
-		{
-			right = _right;
-			left = _left;
-			bottom = _bottom;
-			top = _top;
-		}
-		
-		/* INTERFACE com.wm.base.IPosition */
-		
-		public function set left(value:Object):void 
-		{
-			_left = int(value);
-			if (this.parent) 
-			{
-				this.x = _left;
-			}
-		}
-		
-		public function set right(value:Object):void 
-		{
-			_right = int(value);
-			if (this.parent) 
-			{
-				this.x = this.parent.width - this.width - _right;
-			}
-		}
-		
-		public function set top(value:Object):void 
-		{
-			_top = int(value);
-			if (this.parent) 
-			{
-				this.y = _top;
-			}
-		}
-		
-		public function set bottom(value:Object):void 
-		{
-			_bottom = int(value);
-			if (this.parent) 
-			{
-				this.y = this.parent.height - this.height - _bottom;
-			}
 		}
 		
 		public function get compWidth():int 
@@ -227,11 +213,6 @@ package com.wm.comp
 			{
 				_focusInBmd.dispose();
 				_focusInBmd = null;
-			}
-			if (_bgBmd) 
-			{
-				_bgBmd.dispose();
-				_bgBmd = null;
 			}
 		}
 		

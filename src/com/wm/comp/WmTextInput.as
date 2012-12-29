@@ -32,6 +32,11 @@ package com.wm.comp
 			_input.x = 2;
 			_input.y = 2;
 			flushInputWidth();
+		}
+		
+		override protected function initEvt():void 
+		{
+			//去掉原始监听
 			_evtUtil.addEventListener(_input, FocusEvent.FOCUS_IN, onTxtFocusIn);
 			_evtUtil.addEventListener(_input, FocusEvent.FOCUS_OUT, onTxtFocusOut);
 			_evtUtil.addEventListener(_input, MouseEvent.MOUSE_OVER, onMOver);

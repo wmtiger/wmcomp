@@ -15,9 +15,10 @@ package com.wm.comp
 			super(w, h);
 		}
 		
-		override protected function init():void 
+		override protected function initComp(w:int, h:int):void 
 		{
-			super.init();
+			super.initComp(w, h);
+			
 			_label = new WmText();
 			addChild(_label);
 			_label.selectable = false;

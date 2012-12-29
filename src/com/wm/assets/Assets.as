@@ -43,7 +43,13 @@ package com.wm.assets
 		[Embed(source = "assets.swf", symbol = "chkbox_def_over")]
 		public const chkbox_def_over:Class;
 		[Embed(source = "assets.swf", symbol = "chkbox_def_down")]
-		public const chkbox_def_over:Class;
+		public const chkbox_def_down:Class;
+		[Embed(source = "assets.swf", symbol = "chkbox_def_selected_normal")]
+		public const chkbox_def_selected_normal:Class;
+		[Embed(source = "assets.swf", symbol = "chkbox_def_selected_over")]
+		public const chkbox_def_selected_over:Class;
+		[Embed(source = "assets.swf", symbol = "chkbox_def_selected_down")]
+		public const chkbox_def_selected_down:Class;
 		
 		private static var _instance:Assets;
 		

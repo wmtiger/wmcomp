@@ -38,6 +38,11 @@ package com.wm.comp
 			initWnd();
 		}
 		
+		override protected function initEvt():void 
+		{
+			//去掉原始监听
+		}
+		
 		protected function initWnd():void 
 		{
 			_pivotX = 16;
