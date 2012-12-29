@@ -52,15 +52,8 @@ package com.wm.comp
 		
 		override protected function onCompClick(e:MouseEvent):void 
 		{
-			setSelectedStyle(!selected);
-			setSelected(!selected);
+			selected = !selected;
 			setCrtBgBmd("over");
-		}
-		
-		//此处可能会被扩展出一些方法，比如：状态改变的回调
-		protected function setSelected(val:Boolean):void
-		{
-			_selected = val;
 		}
 		
 		override public function set style(value:String):void 
@@ -119,6 +112,13 @@ package com.wm.comp
 		public function get selected():Boolean 
 		{
 			return _selected;
+		}
+		
+		public function set selected(val:Boolean):void
+		{
+			_selected = val;
+			
+			setSelectedStyle(val);
 		}
 		
 		public function get autoWidth():Boolean 

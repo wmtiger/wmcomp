@@ -19,6 +19,25 @@ package com.wm.comp
 			_list.add(key, radio);
 		}
 		
+		public function clearAllRadioSelect():void
+		{
+			var arr:Array = _list.getValues();
+			for (var i:int = 0; i < arr.length; i++) 
+			{
+				var radio:WmRadioBtn = arr[i] as WmRadioBtn;
+				radio.selected = false;
+			}
+		}
+		
+		public function dispose():void
+		{
+			if (_list) 
+			{
+				_list.dispose();
+				_list = null;
+			}
+		}
+		
 	}
 
 }
