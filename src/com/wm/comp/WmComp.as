@@ -22,6 +22,7 @@ package com.wm.comp
 		protected var _focusInBmd:BitmapData;//底图的位图数据-焦点在其中
 		
 		protected var _style:String;
+		protected var _enabled:Boolean;
 		
 		private var _compWidth:int;//当前的spr的宽
 		private var _compHeight:int;//当前的spr的高
@@ -30,6 +31,7 @@ package com.wm.comp
 		{
 			_evtUtil = new EventListenerUtil();
 			super();
+			enabled = true;
 			initComp(w, h);
 			initEvt();
 		}
@@ -117,6 +119,11 @@ package com.wm.comp
 			return null;
 		}
 		
+		protected function chkBgBmd(bmp:Bitmap):Boolean
+		{
+			return bmp.width == compWidth && bmp.height == compHeight;
+		}
+		
 		protected function drawGraphic(bmd:BitmapData = null):void
 		{
 			this.graphics.clear();
@@ -148,6 +155,26 @@ package com.wm.comp
 			if (draw) 
 			{
 				drawBg();
+			}
+		}
+		
+		public function get enabled():Boolean 
+		{
+			return _enabled;
+		}
+		
+		public function set enabled(value:Boolean):void 
+		{
+			_enabled = value;
+			if (_enabled) 
+			{
+				this.alpha = 1;
+				this.mouseEnabled = true;
+			}
+			else
+			{
+				this.alpha = 0.5;
+				this.mouseEnabled = false;
 			}
 		}
 		

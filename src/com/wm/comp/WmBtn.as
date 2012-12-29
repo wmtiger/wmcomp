@@ -11,7 +11,6 @@ package com.wm.comp
 	public class WmBtn extends WmComp 
 	{
 		private var _clickHandler:Function;
-		private var _enabled:Boolean;
 		
 		public function WmBtn(w:int = 73, h:int = 19) 
 		{
@@ -21,8 +20,8 @@ package com.wm.comp
 		override protected function initComp(w:int, h:int):void 
 		{
 			setWH(w, h, true);
+			style = "btn_def";
 			
-			enabled = true;
 			this.mouseChildren = false;
 		}
 		
@@ -74,29 +73,30 @@ package com.wm.comp
 			}
 		}
 		
-		override protected function getBgBmd(bmp:Bitmap):BitmapData 
-		{
-			return BitmapDataUtil.getBitmapData3Grid(bmp.bitmapData, compWidth, compHeight);
-		}
-		
-		public function get enabled():Boolean 
-		{
-			return _enabled;
-		}
-		
-		public function set enabled(value:Boolean):void 
+		override public function set enabled(value:Boolean):void 
 		{
 			_enabled = value;
 			if (_enabled) 
 			{
 				this.alpha = 1;
 				this.buttonMode = true;
+				this.mouseEnabled = true;
 			}
 			else
 			{
 				this.alpha = 0.5;
 				this.buttonMode = false;
+				this.mouseEnabled = false;
 			}
+		}
+		
+		override protected function getBgBmd(bmp:Bitmap):BitmapData 
+		{
+			if (chkBgBmd(bmp)) 
+			{
+				return bmp.bitmapData.clone();
+			}
+			return BitmapDataUtil.getBitmapData3Grid(bmp.bitmapData, compWidth, compHeight);
 		}
 		
 		public function set clickHandler(value:Function):void 

@@ -50,6 +50,29 @@ package com.wm.assets
 		public const chkbox_def_selected_over:Class;
 		[Embed(source = "assets.swf", symbol = "chkbox_def_selected_down")]
 		public const chkbox_def_selected_down:Class;
+		//radiobtn_def
+		[Embed(source = "assets.swf", symbol = "radiobtn_def_normal")]
+		public const radiobtn_def_normal:Class;
+		[Embed(source = "assets.swf", symbol = "radiobtn_def_over")]
+		public const radiobtn_def_over:Class;
+		[Embed(source = "assets.swf", symbol = "radiobtn_def_down")]
+		public const radiobtn_def_down:Class;
+		[Embed(source = "assets.swf", symbol = "radiobtn_def_selected_normal")]
+		public const radiobtn_def_selected_normal:Class;
+		[Embed(source = "assets.swf", symbol = "radiobtn_def_selected_over")]
+		public const radiobtn_def_selected_over:Class;
+		[Embed(source = "assets.swf", symbol = "radiobtn_def_selected_down")]
+		public const radiobtn_def_selected_down:Class;
+		//slider_def
+		[Embed(source = "assets.swf", symbol = "slider_def_normal")]
+		public const slider_def_normal:Class;
+		[Embed(source = "assets.swf", symbol = "slider_def_over")]
+		public const slider_def_over:Class;
+		[Embed(source = "assets.swf", symbol = "slider_def_down")]
+		public const slider_def_down:Class;
+		//sliderBar_def
+		[Embed(source = "assets.swf", symbol = "sliderBar_def_normal")]
+		public const sliderBar_def_normal:Class;
 		
 		private static var _instance:Assets;
 		

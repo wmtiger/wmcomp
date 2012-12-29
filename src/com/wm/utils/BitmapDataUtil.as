@@ -16,9 +16,8 @@ package com.wm.utils
 		}
 		
 		/**
-		 * 生成格式化好的位图3宫格，左或上为第一宫，中间为第二宫，右或下为第三宫，\n
-		 * 注意只能生成比基本图大的位图数据
-		 * @param bmd		传入一个BitmapData，最小长宽为5
+		 * 生成格式化好的位图3宫格，左或上为第一宫，中间为第二宫，右或下为第三宫
+		 * @param bmd		传入一个BitmapData，最小长宽为1
 		 * @param width		需要生成的BitmapData的长度
 		 * @param height	需要生成的BitmapData的宽度
 		 * @param type		需要生成的3宫格类型,type="lr"是左右宫格,type="tb"是上下宫格
@@ -29,7 +28,7 @@ package com.wm.utils
 		public static function getBitmapData3Grid(sourceBmd:BitmapData, destWidth:int, destHeight:int, 
 				type:String = "lr", left:int = 20, right:int = 20):BitmapData
 		{
-			if(sourceBmd == null || (sourceBmd.width < 5 && sourceBmd.height < 5))
+			if(sourceBmd == null || (sourceBmd.width < 1 && sourceBmd.height < 1))
 			{
 				throw new Error("输入的位图数据为空或格式不对");
 			}

@@ -132,6 +132,10 @@ package com.wm.comp
 		
 		override protected function getBgBmd(bmp:Bitmap):BitmapData 
 		{
+			if (chkBgBmd(bmp)) 
+			{
+				return bmp.bitmapData.clone();
+			}
 			return BitmapDataUtil.getBitmapData9Grid(bmp.bitmapData, compWidth, compHeight, 30, 30, 90, 30);
 		}
 		

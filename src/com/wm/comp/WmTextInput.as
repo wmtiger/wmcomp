@@ -27,6 +27,7 @@ package com.wm.comp
 		
 		protected function init():void 
 		{
+			style = "txt_def";
 			_input = new WmInput();
 			addChild(_input);
 			_input.x = 2;
@@ -78,6 +79,10 @@ package com.wm.comp
 		
 		override protected function getBgBmd(bmp:Bitmap):BitmapData 
 		{
+			if (chkBgBmd(bmp)) 
+			{
+				return bmp.bitmapData.clone();
+			}
 			return BitmapDataUtil.getBitmapData9Grid(bmp.bitmapData, compWidth, compHeight, 5, 5, 5, 5);
 		}
 		

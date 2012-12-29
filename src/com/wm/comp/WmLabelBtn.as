@@ -20,14 +20,22 @@ package com.wm.comp
 			super.initComp(w, h);
 			
 			_label = new WmText();
+			//_label.setFormat( { "size":12 } );
 			addChild(_label);
 			_label.selectable = false;
 			label = _txt;
 		}
 		
+		public function get label():String
+		{
+			return _txt + "";
+		}
+		
 		public function set label(txt:String):void
 		{
-			_label.setText(_txt, true, true);
+			_txt = txt;
+			
+			_label.setText(txt, true, true);
 			_label.x = compWidth - _label.width >> 1;
 			_label.y = compHeight - _label.height >> 1;
 		}
