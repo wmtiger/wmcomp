@@ -77,12 +77,13 @@ package com.wm.comp
 			{
 				var item:ListItemRender = getItemCls();
 				addChild(item);
-				item.x = 0;
+				item.x = _itemX;
+				item.y = _itemY + item.height * i;
 			}
 		}
 		private function getItemCls():ListItemRender
 		{
-			return _itemCls;
+			return new ListItemRender(_listWidth);
 		}
 		
 		public function get listNums():int
