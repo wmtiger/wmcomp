@@ -73,6 +73,9 @@ package com.wm.assets
 		//sliderBar_def
 		[Embed(source = "assets.swf", symbol = "sliderBar_def_normal")]
 		public const sliderBar_def_normal:Class;
+		//list_def_bg_normal
+		[Embed(source = "assets.swf", symbol = "list_def_bg_normal")]
+		public const list_def_bg_normal:Class;
 		
 		private static var _instance:Assets;
 		
@@ -95,7 +98,7 @@ package com.wm.assets
 		/**
 		 * 通过具体类型获取单个具体皮肤，返回DisplayObject,自己注意好fla里面资源的类型定义
 		 * @param	style		style名
-		 * @param	type		style类型:over, down, normal, focusIn, selected 中的一个
+		 * @param	type		style类型:over, down, normal, focusIn 中的一个
 		 * @return
 		 */
 		public function getSkinByType(style:String, type:String = "normal"):*
