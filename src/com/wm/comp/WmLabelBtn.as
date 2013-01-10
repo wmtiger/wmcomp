@@ -6,8 +6,8 @@ package com.wm.comp
 	 */
 	public class WmLabelBtn extends WmBtn 
 	{
-		private var _label:WmText;
-		private var _txt:String;
+		protected var _label:WmText;
+		protected var _txt:String;
 		
 		public function WmLabelBtn(txt:String, w:int = 73, h:int = 19) 
 		{
@@ -19,6 +19,11 @@ package com.wm.comp
 		{
 			super.initComp(w, h);
 			
+			initLabel();
+		}
+		
+		protected function initLabel():void 
+		{
 			_label = new WmText();
 			//_label.setFormat( { "size":12 } );
 			addChild(_label);

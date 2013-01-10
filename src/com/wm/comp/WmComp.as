@@ -110,7 +110,7 @@ package com.wm.comp
 		protected function setCrtBgBmd(type:String):void
 		{
 			_bgBmd = this["_" + type + "Bmd"] as BitmapData;
-			drawGraphic(_bgBmd);
+			drawGraphic(_bgBmd, type);
 		}
 		
 		//需要改变获取位图的正确图像，必须覆盖此方法
@@ -124,7 +124,7 @@ package com.wm.comp
 			return bmp.width == compWidth && bmp.height == compHeight;
 		}
 		
-		protected function drawGraphic(bmd:BitmapData = null):void
+		protected function drawGraphic(bmd:BitmapData = null, type:String = "normal"):void
 		{
 			this.graphics.clear();
 			if (bmd) 
@@ -137,7 +137,21 @@ package com.wm.comp
 				{
 					return;
 				}
-				this.graphics.beginFill(0xff0000, 0.1);
+				switch (type) 
+				{
+					case "normal":
+						this.graphics.beginFill(0x0000cc, 0.1);
+						break;
+					case "over":
+						this.graphics.beginFill(0x0000ff, 0.2);
+						break;
+					case "down":
+						this.graphics.beginFill(0x0000ff, 0.4);
+						break;
+					case "focusIn":
+						this.graphics.beginFill(0x0000cc, 0.1);
+						break;
+				}
 			}
 			this.graphics.drawRect(0, 0, _compWidth, _compHeight);
 			this.graphics.endFill();
@@ -148,7 +162,7 @@ package com.wm.comp
 		 * @param	w
 		 * @param	h
 		 */
-		public function setWH(w:int, h:int, draw:Boolean = false):void
+		override public function setWH(w:int, h:int, draw:Boolean = false):void
 		{
 			_compWidth = w;
 			_compHeight = h;

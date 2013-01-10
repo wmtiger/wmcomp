@@ -20,7 +20,7 @@ package com.wm.comp
 		private var _minBtn:WmBtn;//最小化按钮
 		private var _maxable:Boolean;//是否可以最大化
 		private var _minable:Boolean;//是否可以最小化
-		private var _content:WmComp;//内容
+		private var _content:WmSprite;//内容
 		private var _contentLeft:int;//内容面板的位置
 		private var _contentRight:int;
 		private var _contentTop:int;
@@ -94,14 +94,14 @@ package com.wm.comp
 			_contentLeft = _contentRight = 24;
 			_contentTop = 45;
 			_contentBottom = 25;
-			_content = new WmComp();
+			_content = new WmSprite();
 			addChild(_content);
 			_content.left = _contentLeft;
 			_content.top = _contentTop;
 			flushWH();
 		}
 		
-		public function get content():WmComp
+		public function get content():WmSprite
 		{
 			return _content;
 		}

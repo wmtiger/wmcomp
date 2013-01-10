@@ -6,6 +6,7 @@ package com.wm.comp
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.events.Event;
+	import flash.geom.Rectangle;
 	/**
 	 * ...
 	 * @author wmtiger
@@ -19,6 +20,7 @@ package com.wm.comp
 		protected var _data:Array;
 		protected var _itemCls:ListItemRender;//list的item类
 		protected var _listItems:Array;//list的item列表
+		protected var _itemContent:WmSprite;//装list的容器
 		protected var _itemX:int;
 		protected var _itemY:int;
 		
@@ -36,6 +38,12 @@ package com.wm.comp
 			_listBg = new Bitmap();
 			addChild(_listBg);
 			flushBarPosition();
+			_itemContent = new WmSprite();
+			addChild(_itemContent);
+			_itemContent.setWH(_listWidth - _itemX * 2, _listHeight - _itemY * 2, true);
+			_itemContent.x = _itemX;
+			_itemContent.y = _itemY;
+			_itemContent.scrollRect = new Rectangle(0,0,_itemContent.sprWidth, _itemContent.sprHeight);
 		}
 		
 		protected function flushBarPosition():void 
@@ -76,14 +84,15 @@ package com.wm.comp
 			for (var i:int = 0; i < _data.length; i++) 
 			{
 				var item:ListItemRender = getItemCls();
-				addChild(item);
-				item.x = _itemX;
-				item.y = _itemY + item.height * i;
+				item.data = _data[i];
+				_itemContent.addChild(item);
+				item.y = item.height * i;
 			}
 		}
 		private function getItemCls():ListItemRender
 		{
-			return new ListItemRender(_listWidth);
+			trace("_itemContent.sprWidth",_itemContent.sprWidth);
+			return new ListItemRender(_itemContent.sprWidth);
 		}
 		
 		public function get listNums():int

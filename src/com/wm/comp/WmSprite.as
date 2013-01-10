@@ -18,9 +18,37 @@ package com.wm.comp
 		private var _top:int;
 		private var _bottom:int;
 		
+		private var _sprWidth:int;
+		private var _sprHeight:int;
+		
 		public function WmSprite() 
 		{
+			
 			super();
+		}
+		
+		public function setWH(w:int, h:int, draw:Boolean = false):void
+		{
+			_sprWidth = w;
+			_sprHeight = h;
+			if (_sprWidth == 0 || _sprHeight == 0) 
+				return;
+			if (!draw) 
+				return;
+			this.graphics.clear();
+			this.graphics.beginFill(0, 0);
+			this.graphics.drawRect(0, 0, _sprWidth, _sprHeight);
+			this.graphics.endFill();
+		}
+		
+		public function get sprWidth():int 
+		{
+			return _sprWidth;
+		}
+		
+		public function get sprHeight():int 
+		{
+			return _sprHeight;
 		}
 		
 		public function flushPosition():void
