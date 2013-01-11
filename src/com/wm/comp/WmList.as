@@ -5,6 +5,7 @@ package com.wm.comp
 	import com.wm.utils.BitmapDataUtil;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.display.Shape;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
 	/**
@@ -23,6 +24,8 @@ package com.wm.comp
 		protected var _itemContent:WmSprite;//装list的容器
 		protected var _itemX:int;
 		protected var _itemY:int;
+		protected var _listMask:Shape;//list列表的遮罩
+		protected var _itemPools:Array;//item的pool池
 		
 		public function WmList(w:int = 100, h:int = 100) 
 		{
@@ -33,6 +36,8 @@ package com.wm.comp
 		
 		private function init():void 
 		{
+			_listItems = [];
+			_itemPools = [];
 			_itemX = 4;
 			_itemY = 4;
 			_listBg = new Bitmap();
@@ -40,10 +45,37 @@ package com.wm.comp
 			flushBarPosition();
 			_itemContent = new WmSprite();
 			addChild(_itemContent);
-			_itemContent.setWH(_listWidth - _itemX * 2, _listHeight - _itemY * 2, true);
 			_itemContent.x = _itemX;
 			_itemContent.y = _itemY;
-			_itemContent.scrollRect = new Rectangle(0,0,_itemContent.sprWidth, _itemContent.sprHeight);
+			_listMask = new Shape();
+			_listMask.graphics.beginFill(0);
+			_listMask.graphics.drawRect(0, 0, 10, 10);
+			_listMask.graphics.endFill();
+			addChild(_listMask);
+			_listMask.x = _itemX;
+			_listMask.y = _itemY;
+			resetContent(_listWidth - _itemX * 2, _listHeight - _itemY * 2);
+			_itemContent.mask = _listMask;
+		}
+		
+		protected function resetContent(w:int, h:int, resetRender:Boolean = false):void
+		{
+			_itemContent.setWH(w, h, true);
+			
+			//可酌情选择开启或者不开启
+			if (resetRender) 
+			{
+				var l:int = _listItems.length;
+				var item:ListItemRender;
+				for (var i:int = 0; i < l; i++) 
+				{
+					item = _listItems[i] as ListItemRender;
+					item.setWH(w, h, true);
+				}
+			}
+			
+			_listMask.width = _itemContent.sprWidth;
+			_listMask.height = _itemContent.sprHeight;
 		}
 		
 		protected function flushBarPosition():void 
@@ -80,19 +112,44 @@ package com.wm.comp
 		public function set data(arr:Array):void
 		{
 			_data = arr;
-			_listItems = [];//这里是随手写的，这里要注意列表中的回收
-			for (var i:int = 0; i < _data.length; i++) 
+			var i:int;
+			var l:int;
+			while (_listItems.length) 
 			{
-				var item:ListItemRender = getItemCls();
-				item.data = _data[i];
-				_itemContent.addChild(item);
-				item.y = item.height * i;
+				backItem(_listItems.pop());
 			}
+			l = _data.length;
+			for (i = 0; i < l; i++) 
+			{
+				var item:ListItemRender = getItem();
+				item.data = _data[i];
+				
+				item.y = item.height * i;
+				_listItems.push(item);
+			}
+			_itemContent.y = _itemY;
 		}
-		private function getItemCls():ListItemRender
+		private function getItem():ListItemRender
 		{
-			trace("_itemContent.sprWidth",_itemContent.sprWidth);
-			return new ListItemRender(_itemContent.sprWidth);
+			var item:ListItemRender;
+			if (_itemPools.length == 0) 
+			{
+				item = new ListItemRender(_itemContent.sprWidth);
+				_itemContent.addChild(item);
+			}
+			else
+			{
+				item = _itemPools.pop() as ListItemRender;
+			}
+			item.y = 0;
+			item.visible = true;
+			return item;
+		}
+		private function backItem(item:ListItemRender):void
+		{
+			_itemPools.push(item);
+			item.visible = false;
+			item.y = 0;
 		}
 		
 		public function get listNums():int

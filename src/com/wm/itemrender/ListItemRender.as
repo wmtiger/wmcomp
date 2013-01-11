@@ -28,6 +28,23 @@ package com.wm.itemrender
 			initLabel();
 		}
 		
+		override public function set enabled(value:Boolean):void 
+		{
+			_enabled = value;
+			if (_enabled) 
+			{
+				this.alpha = 1;
+				this.buttonMode = false;
+				this.mouseEnabled = true;
+			}
+			else
+			{
+				this.alpha = 0.5;
+				this.buttonMode = false;
+				this.mouseEnabled = false;
+			}
+		}
+		
 		public function get data():Object 
 		{
 			return _data;
