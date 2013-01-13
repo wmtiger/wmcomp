@@ -10,7 +10,9 @@ package com.wm.comp
 	 */
 	public class WmBtn extends WmComp 
 	{
-		private var _clickHandler:Function;
+		protected var _clickHandler:Function;
+		protected var _downHandler:Function;
+		protected var _upHandler:Function;
 		
 		public function WmBtn(w:int = 73, h:int = 19) 
 		{
@@ -32,6 +34,10 @@ package com.wm.comp
 				return;
 			}
 			setCrtBgBmd("over");
+			if (_upHandler != null) 
+			{
+				_upHandler.call();
+			}
 		}
 		
 		override protected function onCompMOut(e:MouseEvent):void 
@@ -50,6 +56,10 @@ package com.wm.comp
 				return;
 			}
 			setCrtBgBmd("down");
+			if (_downHandler != null) 
+			{
+				_downHandler.call();
+			}
 		}
 		
 		override protected function onCompMOver(e:MouseEvent):void 
@@ -104,10 +114,22 @@ package com.wm.comp
 			_clickHandler = value;
 		}
 		
+		public function set downHandler(value:Function):void 
+		{
+			_downHandler = value;
+		}
+		
+		public function set upHandler(value:Function):void 
+		{
+			_upHandler = value;
+		}
+		
 		override public function dispose():void 
 		{
 			super.dispose();
 			_clickHandler = null;
+			_upHandler = null;
+			_downHandler = null;
 		}
 		
 	}

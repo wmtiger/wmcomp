@@ -63,6 +63,7 @@ package com.wm.itemrender
 		{
 			_txt = value;
 			
+			//_label.text = "";
 			_label.setText(_txt, true, true);
 			_label.x = 3;
 			_label.y = compHeight - _label.height >> 1;

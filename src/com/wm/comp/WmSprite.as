@@ -18,12 +18,11 @@ package com.wm.comp
 		private var _top:int;
 		private var _bottom:int;
 		
-		private var _sprWidth:int;
-		private var _sprHeight:int;
+		protected var _sprWidth:int;
+		protected var _sprHeight:int;
 		
 		public function WmSprite() 
 		{
-			
 			super();
 		}
 		
@@ -35,6 +34,10 @@ package com.wm.comp
 				return;
 			if (!draw) 
 				return;
+			drawDefBg();
+		}
+		protected function drawDefBg():void
+		{
 			this.graphics.clear();
 			this.graphics.beginFill(0, 0);
 			this.graphics.drawRect(0, 0, _sprWidth, _sprHeight);

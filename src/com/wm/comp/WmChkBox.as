@@ -103,7 +103,7 @@ package com.wm.comp
 		{
 			_label = value;
 			
-			_txt.text = "";//此处如果要重新覆盖文本，就要将其先设置为"",然后再修改文本，这样字体就能生效
+			//_txt.text = "";//此处如果要重新覆盖文本，就要将其先设置为"",然后再修改文本，这样字体就能生效
 			_txt.text = _label;
 			flushWidth();
 			_txt.y = compHeight - _txt.height >> 1;

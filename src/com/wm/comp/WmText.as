@@ -37,9 +37,10 @@ package com.wm.comp
 		
 		override public function set text(value:String):void
 		{
-			var b:Boolean = this.text == "" ? true : false;//之前文本框是否是空字符
+			//var b:Boolean = this.text == "" ? true : false;//之前文本框是否是空字符
 			super.text = value;
-			b ? setFormat(_fmt) : null;
+			//b ? setFormat(_fmt) : null;
+			setFormat(_fmt);
 			flushAutoText();
 		}
 		

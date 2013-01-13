@@ -73,9 +73,33 @@ package com.wm.assets
 		//sliderBar_def
 		[Embed(source = "assets.swf", symbol = "sliderBar_def_normal")]
 		public const sliderBar_def_normal:Class;
-		//list_def_bg_normal
-		[Embed(source = "assets.swf", symbol = "list_def_bg_normal")]
-		public const list_def_bg_normal:Class;
+		//list_bg_def
+		[Embed(source = "assets.swf", symbol = "list_bg_def_normal")]
+		public const list_bg_def_normal:Class;
+		//scroll_up_def
+		[Embed(source = "assets.swf", symbol = "scroll_up_def_normal")]
+		public const scroll_up_def_normal:Class;
+		[Embed(source = "assets.swf", symbol = "scroll_up_def_over")]
+		public const scroll_up_def_over:Class;
+		[Embed(source = "assets.swf", symbol = "scroll_up_def_down")]
+		public const scroll_up_def_down:Class;
+		//scroll_down_def
+		[Embed(source = "assets.swf", symbol = "scroll_down_def_normal")]
+		public const scroll_down_def_normal:Class;
+		[Embed(source = "assets.swf", symbol = "scroll_down_def_over")]
+		public const scroll_down_def_over:Class;
+		[Embed(source = "assets.swf", symbol = "scroll_down_def_down")]
+		public const scroll_down_def_down:Class;
+		//scroll_slider_def
+		[Embed(source = "assets.swf", symbol = "scroll_slider_def_normal")]
+		public const scroll_slider_def_normal:Class;
+		[Embed(source = "assets.swf", symbol = "scroll_slider_def_over")]
+		public const scroll_slider_def_over:Class;
+		[Embed(source = "assets.swf", symbol = "scroll_slider_def_down")]
+		public const scroll_slider_def_down:Class;
+		//scroll_path_def
+		[Embed(source = "assets.swf", symbol = "scroll_path_def_normal")]
+		public const scroll_path_def_normal:Class;
 		
 		private static var _instance:Assets;
 		
