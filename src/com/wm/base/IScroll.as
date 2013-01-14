@@ -24,6 +24,12 @@ package com.wm.base
 		 * @param	p
 		 */
 		function scrollPosition(p:Number):void;
+		
+		/**
+		 * 修改滚动条位置
+		 * @param	p	为right是在右边，为left是在左边
+		 */
+		function setScrollPosition(p:String = "right"):void;
 	}
 	
 }

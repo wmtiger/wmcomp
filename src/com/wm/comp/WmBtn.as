@@ -85,19 +85,13 @@ package com.wm.comp
 		
 		override public function set enabled(value:Boolean):void 
 		{
-			_enabled = value;
-			if (_enabled) 
-			{
-				this.alpha = 1;
-				this.buttonMode = true;
-				this.mouseEnabled = true;
-			}
-			else
-			{
-				this.alpha = 0.5;
-				this.buttonMode = false;
-				this.mouseEnabled = false;
-			}
+			super.enabled = value;
+			setBtnEnabled(value);
+		}
+		
+		protected function setBtnEnabled(value:Boolean):void
+		{
+			this.buttonMode = value;
 		}
 		
 		override protected function getBgBmd(bmp:Bitmap):BitmapData 

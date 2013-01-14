@@ -1,13 +1,16 @@
 package com.wm.comp 
 {
 	import com.wm.assets.Assets;
+	import com.wm.base.IListItemRender;
 	import com.wm.base.IScroll;
 	import com.wm.itemrender.ListItemRender;
 	import com.wm.utils.BitmapDataUtil;
+	import com.wm.utils.EventListenerUtil;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Shape;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
 	/**
 	 * ...
@@ -27,10 +30,14 @@ package com.wm.comp
 		protected var _listMask:Shape;//list列表的遮罩
 		protected var _itemPools:Array;//item的pool池
 		
+		protected var _scrollPosition:String;//滚动条位置
 		protected var _scroll:WmScroll;//滚动条
+		protected var _evtUtil:EventListenerUtil;
+		protected var _curSelectedItem:IListItemRender;//当前被选中的列表元素
 		
 		public function WmList(w:int = 100, h:int = 100) 
 		{
+			_evtUtil = new EventListenerUtil();
 			_listWidth = w;
 			_listHeight = h;
 			init();
@@ -58,6 +65,32 @@ package com.wm.comp
 			_listMask.y = _itemY;
 			resetContent(_listWidth - _itemX * 2, _listHeight - _itemY * 2);
 			_itemContent.mask = _listMask;
+			
+			setScrollPosition();
+			_evtUtil.addEventListener(_itemContent, MouseEvent.CLICK, onClickContent);
+		}
+		
+		private function onClickContent(e:MouseEvent):void 
+		{
+			e.stopImmediatePropagation();
+			if (e.target is IListItemRender) 
+			{
+				var item:IListItemRender = e.target as IListItemRender;
+				if (item == _curSelectedItem) 
+				{
+					return;
+				}
+				
+				var l:int = _listItems.length;
+				for (var i:int = 0; i < l; i++) 
+				{
+					_listItems[i].selected = false;
+				}
+				item.selected = true;
+				_curSelectedItem = item;
+				
+				this.dispatchEvent(new Event(Event.CHANGE));//更换选中对象
+			}
 		}
 		
 		protected function resetContent(w:int, h:int, resetRender:Boolean = false):void
@@ -124,7 +157,7 @@ package com.wm.comp
 			{
 				_scroll = new WmScroll(this, 17, listHeight - _itemY * 2);
 				addChild(_scroll);
-				_scroll.right = _itemX;
+				
 				_scroll.top = _itemY;
 				_scroll.visible = false;
 			}
@@ -208,8 +241,47 @@ package com.wm.comp
 			_itemContent.y = _itemY - (_itemContent.height - listHeight - _itemY * 2) * p;
 		}
 		
+		public function setScrollPosition(p:String = "right"):void 
+		{
+			_scrollPosition = p;
+			
+		}
+		
+		//刷新滚动条所在的位置以及_itemContent的相对位置
+		protected function flushScrollPosition():void
+		{
+			if (_scrollPosition == "left") 
+			{
+				if (_scroll) 
+				{
+					_scroll.left = _itemX;
+					if (_scroll.visible) 
+					{
+						_itemContent.x = _itemX + _scroll.sprWidth;
+					}
+					else
+					{
+						_itemContent.x = _itemX;
+					}
+				}
+			}
+			else if (_scrollPosition == "right") 
+			{
+				if (_scroll) 
+				{
+					_scroll.right = _itemX;
+					_itemContent.x = _itemX;
+				}
+			}
+		}
+		
 		override public function dispose():void 
 		{
+			if (_evtUtil) 
+			{
+				_evtUtil.dispose();
+				_evtUtil = null;
+			}
 			_style = null;
 			if (_listBg) 
 			{
