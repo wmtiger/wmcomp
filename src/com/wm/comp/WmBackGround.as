@@ -21,6 +21,7 @@ package com.wm.comp
 			super();
 			type = "normal";//默认是普通状态
 			setWH(w, h);
+			this.mouseChildren = false;
 		}
 		
 		//画背景图

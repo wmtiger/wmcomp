@@ -100,6 +100,15 @@ package com.wm.assets
 		//scroll_path_def
 		[Embed(source = "assets.swf", symbol = "scroll_path_def_normal")]
 		public const scroll_path_def_normal:Class;
+		//scroll_slider_def
+		[Embed(source = "assets.swf", symbol = "combobox_normal")]
+		public const combobox_normal:Class;
+		[Embed(source = "assets.swf", symbol = "combobox_over")]
+		public const combobox_over:Class;
+		[Embed(source = "assets.swf", symbol = "combobox_down")]
+		public const combobox_down:Class;
+		[Embed(source = "assets.swf", symbol = "combobox_arrow_normal")]
+		public const combobox_arrow_normal:Class;
 		
 		private static var _instance:Assets;
 		

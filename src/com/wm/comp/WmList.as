@@ -76,10 +76,10 @@ package com.wm.comp
 			if (e.target is IListItemRender) 
 			{
 				var item:IListItemRender = e.target as IListItemRender;
-				if (item == _curSelectedItem) 
+				/*if (item == _curSelectedItem) 
 				{
 					return;
-				}
+				}*/
 				
 				var l:int = _listItems.length;
 				for (var i:int = 0; i < l; i++) 
@@ -190,6 +190,7 @@ package com.wm.comp
 				if (_scroll) 
 					_scroll.visible = false;
 			}
+			flushScrollPosition();
 		}
 		private function getItem():ListItemRender
 		{
@@ -210,6 +211,7 @@ package com.wm.comp
 		private function backItem(item:ListItemRender):void
 		{
 			_itemPools.push(item);
+			item.selected = false;
 			item.visible = false;
 			item.y = 0;
 		}
@@ -244,7 +246,7 @@ package com.wm.comp
 		public function setScrollPosition(p:String = "right"):void 
 		{
 			_scrollPosition = p;
-			
+			flushScrollPosition();
 		}
 		
 		//刷新滚动条所在的位置以及_itemContent的相对位置
