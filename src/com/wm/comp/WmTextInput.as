@@ -13,6 +13,8 @@ package com.wm.comp
 	{
 		protected var _input:WmInput;
 		private var _inputFocusIn:Boolean;
+		protected var _itemX:int;
+		protected var _itemY:int;
 		
 		public function WmTextInput(w:int = 120, h:int = 24) 
 		{
@@ -27,11 +29,13 @@ package com.wm.comp
 		
 		protected function init():void 
 		{
+			_itemX = 2;
+			_itemY = 2;
 			style = "txt_def";
 			_input = new WmInput();
 			addChild(_input);
-			_input.x = 2;
-			_input.y = 2;
+			_input.x = _itemX;
+			_input.y = _itemY;
 			flushInputWidth();
 		}
 		
@@ -74,7 +78,7 @@ package com.wm.comp
 		
 		private function flushInputWidth():void
 		{
-			_input.width = compWidth - _input.x * 2;
+			_input.width = compWidth - _itemX - _input.x;
 		}
 		
 		override protected function getBgBmd(bmp:Bitmap):BitmapData 
@@ -101,6 +105,16 @@ package com.wm.comp
 				//当为单行输入文本时，更改高度
 				compHeight = _input.height + 4;
 			}
+		}
+		
+		public function set text(val:String):void
+		{
+			_input.text = val;
+		}
+		
+		public function get text():String
+		{
+			return _input.text;
 		}
 		
 		override public function set compWidth(value:int):void 

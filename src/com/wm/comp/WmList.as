@@ -179,17 +179,7 @@ package com.wm.comp
 			}
 			_itemContent.y = _itemY;
 			
-			if (_itemContent.height > listHeight - _itemY * 2) 
-			{
-				initScroll();
-				_scroll.flushSliderHeight((listHeight - _itemY * 2) / _itemContent.height);
-				_scroll.visible = true;
-			}
-			else
-			{
-				if (_scroll) 
-					_scroll.visible = false;
-			}
+			chkScrollVisible();
 			flushScrollPosition();
 		}
 		private function getItem():ListItemRender
@@ -221,7 +211,31 @@ package com.wm.comp
 			return _data == null ? 0 : _data.length;
 		}
 		
+		override public function set bottom(value:Object):void 
+		{
+			_bottom = int(value);
+			if (this.parent) 
+			{
+				this.y = this.parent.height - this.listHeight - _bottom;
+			}
+		}
+		
 		/* INTERFACE com.wm.base.IScroll */
+		
+		public function chkScrollVisible():void 
+		{
+			if (_itemContent.height > listHeight - _itemY * 2) 
+			{
+				initScroll();
+				_scroll.flushSliderHeight((listHeight - _itemY * 2) / _itemContent.height);
+				_scroll.visible = true;
+			}
+			else
+			{
+				if (_scroll) 
+					_scroll.visible = false;
+			}
+		}
 		
 		public function scrollUp(unit:int = 1):void 
 		{

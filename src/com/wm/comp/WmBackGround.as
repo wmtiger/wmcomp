@@ -65,7 +65,7 @@ package com.wm.comp
 			{
 				return bmp.bitmapData.clone();
 			}
-			return BitmapDataUtil.getBitmapData3Grid(bmp.bitmapData, sprWidth, sprHeight, "tb", 5, 5);
+			return BitmapDataUtil.getBitmapData9Grid(bmp.bitmapData, sprWidth, sprHeight, 10, 10, 10, 10);
 		}
 		protected function chkBgBmd(bmp:Bitmap):Boolean
 		{

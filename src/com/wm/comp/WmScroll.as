@@ -13,7 +13,7 @@ package com.wm.comp
 		protected var _upBtn:WmBtn;
 		protected var _downBtn:WmBtn;
 		protected var _sliderBtn:SliderBtn;
-		protected var _scrollPath:WmBackGround;//负责整个滚动条的长宽
+		protected var _scrollPath:ScrollPath;//负责整个滚动条的长宽
 		protected var _progress:Number;//滑块百分比
 		protected var _sliderRect:Rectangle;
 		protected var _sliderSpace:int;//滑块可以滑动的区间
@@ -42,7 +42,7 @@ package com.wm.comp
 		}
 		protected function initScrollPath():void
 		{
-			_scrollPath = new WmBackGround(sprWidth, sprHeight);
+			_scrollPath = new ScrollPath(sprWidth, sprHeight);
 			_scrollPath.style = "scroll_path_def";
 			addChild(_scrollPath);
 		}
@@ -77,17 +77,17 @@ package com.wm.comp
 			addChild(_sliderBtn);
 			_sliderBtn.x = 1;
 			
-			_sliderBtn.downHandler = down;
+			_sliderBtn.downHandler = onSliderDown;
 			
-			_sliderBtn.upHandler = up;
+			_sliderBtn.upHandler = onSliderUp;
 		}
-		private function down():void
+		private function onSliderDown():void
 		{
 			_sliderBtn.startDrag(false, _sliderRect);
 			if (!this.hasEventListener(Event.ENTER_FRAME))
 				this.addEventListener(Event.ENTER_FRAME, onLoop);
 		}
-		private function up():void
+		private function onSliderUp():void
 		{
 			_sliderBtn.stopDrag();
 			this.removeEventListener(Event.ENTER_FRAME, onLoop);
@@ -126,6 +126,25 @@ package com.wm.comp
 		
 	}
 
+}
+
+import com.wm.comp.WmBackGround;
+
+class ScrollPath extends WmBackGround
+{
+	public function ScrollPath(w:int = 0, h:int = 0)
+	{
+		super(w, h);
+	}
+	
+	override protected function getBgBmd(bmp:Bitmap):BitmapData 
+	{
+		if (chkBgBmd(bmp)) 
+		{
+			return bmp.bitmapData.clone();
+		}
+		return BitmapDataUtil.getBitmapData3Grid(bmp.bitmapData, sprWidth, sprHeight, "tb", 5, 5);
+	}
 }
 
 import com.wm.utils.BitmapDataUtil;

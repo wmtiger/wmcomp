@@ -11,6 +11,11 @@ package com.wm.base
 		function set right(val:Object):void;
 		function set top(val:Object):void;
 		function set bottom(val:Object):void;
+		
+		function get left():Object;
+		function get right():Object;
+		function get top():Object;
+		function get bottom():Object;
 	}
 	
 }

@@ -2,21 +2,23 @@ package com.wm.comp
 {
 	import com.wm.base.IDispose;
 	import com.wm.base.IPosition;
+	import com.wm.base.ISprContent;
 	import flash.display.BitmapData;
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	
 	/**
 	 * 简单精灵、容器
 	 * @author wmTiger
 	 */
-	public class WmSprite extends Sprite implements IDispose, IPosition
+	public class WmSprite extends Sprite implements IDispose, IPosition, ISprContent
 	{
 		protected var _bgBmd:BitmapData;//底图的位图数据，实际显示用的是这个
 		
-		private var _left:int;
-		private var _right:int;
-		private var _top:int;
-		private var _bottom:int;
+		protected var _left:int;
+		protected var _right:int;
+		protected var _top:int;
+		protected var _bottom:int;
 		
 		protected var _sprWidth:int;
 		protected var _sprHeight:int;
@@ -100,6 +102,26 @@ package com.wm.comp
 			}
 		}
 		
+		public function get left():Object 
+		{
+			return Object(_left);
+		}
+		
+		public function get right():Object 
+		{
+			return Object(_right);
+		}
+		
+		public function get top():Object 
+		{
+			return Object(_top);
+		}
+		
+		public function get bottom():Object 
+		{
+			return Object(_bottom);
+		}
+		
 		/* INTERFACE wm.base.IDispose */
 		
 		public function dispose():void 
@@ -113,6 +135,67 @@ package com.wm.comp
 				_bgBmd.dispose();
 				_bgBmd = null;
 			}
+		}
+		
+		/* INTERFACE com.wm.base.ISprContent */
+		
+		public function addElement(disp:DisplayObject, x:int = 0, y:int = 0):DisplayObject 
+		{
+			disp.x = x;
+			disp.y = y;
+			return addChild(disp);
+		}
+		
+		public function addElementAt(disp:DisplayObject, index:int, x:int = 0, y:int = 0):DisplayObject 
+		{
+			disp.x = x;
+			disp.y = y;
+			return addChildAt(disp, index);
+		}
+		
+		public function removeElement(disp:DisplayObject):DisplayObject 
+		{
+			return removeChild(disp);
+		}
+		
+		public function removeElementAt(index:int):DisplayObject 
+		{
+			return removeChildAt(index);
+		}
+		
+		public function removeElements(beginIdx:int = 0, endIdx:int = int.MAX_VALUE):void 
+		{
+			removeChildren(beginIdx, endIdx);
+		}
+		
+		public function getElementByName(name:String):DisplayObject 
+		{
+			return getChildByName(name);
+		}
+		
+		public function getElementAt(index:int):DisplayObject 
+		{
+			return getChildAt(index);
+		}
+		
+		public function getElementIndex(disp:DisplayObject):int 
+		{
+			return getChildIndex(disp);
+		}
+		
+		public function setElementIndex(disp:DisplayObject, index:int):void 
+		{
+			setChildIndex(disp, index);
+		}
+		
+		public function swapElement(disp1:DisplayObject, disp2:DisplayObject):void 
+		{
+			swapChildren(disp1, disp2);
+		}
+		
+		public function swapElementAt(index1:int, index2:int):void 
+		{
+			swapChildrenAt(index1, index2);
 		}
 		
 	}

@@ -139,14 +139,14 @@ package com.wm.comp
 			return BitmapDataUtil.getBitmapData9Grid(bmp.bitmapData, compWidth, compHeight, 30, 30, 90, 30);
 		}
 		
-		public function addElement(disp:DisplayObject, x:int = 0, y:int = 0):void
+		public function addElementToContent(disp:DisplayObject, x:int = 0, y:int = 0):void
 		{
 			_content.addChild(disp);
 			disp.x = x;
 			disp.y = y;
 		}
 		
-		public function removeElement(disp:DisplayObject, dispose:Boolean = false):void
+		public function removeElementFromContent(disp:DisplayObject, dispose:Boolean = false):void
 		{
 			_content.removeChild(disp);
 			if (dispose) 

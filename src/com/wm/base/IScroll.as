@@ -30,6 +30,11 @@ package com.wm.base
 		 * @param	p	为right是在右边，为left是在左边
 		 */
 		function setScrollPosition(p:String = "right"):void;
+		
+		/**
+		 * 判断滚动条是否显示
+		 */
+		function chkScrollVisible():void;
 	}
 	
 }

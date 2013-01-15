@@ -182,6 +182,26 @@ package com.wm.comp
 			}
 		}
 		
+		public function get left():Object 
+		{
+			return Object(_left);
+		}
+		
+		public function get right():Object 
+		{
+			return Object(_right);
+		}
+		
+		public function get top():Object 
+		{
+			return Object(_top);
+		}
+		
+		public function get bottom():Object 
+		{
+			return Object(_bottom);
+		}
+		
 		/* INTERFACE wm.base.IDispose */
 		
 		public function dispose():void
