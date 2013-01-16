@@ -1,5 +1,7 @@
 package com.wm.comp 
 {
+	import com.wm.base.IListItemRender;
+	import com.wm.evt.WmCompEvt;
 	import com.wm.mgr.WmCompMgr;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -34,11 +36,13 @@ package com.wm.comp
 			initLabel();
 			
 			_list = new WmList(compWidth, 100);
-			_list.addEventListener(Event.CHANGE, onChange);
+			_list.addEventListener(WmCompEvt.CHANGE, onChange);
 		}
 		
-		private function onChange(e:Event):void 
+		private function onChange(e:WmCompEvt):void 
 		{
+			var item:IListItemRender = e.data as IListItemRender;
+			label = item.data == null ? "" : "" + item.data.name;
 			close();
 		}
 		
@@ -103,6 +107,14 @@ package com.wm.comp
 				_arrow.dispose();
 				_arrow = null;
 			}
+			_point = null;
+			_data = null;
+			if (_list) 
+			{
+				_list.dispose();
+				_list = null;
+			}
+			
 			super.dispose();
 		}
 		

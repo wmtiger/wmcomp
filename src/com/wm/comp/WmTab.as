@@ -139,6 +139,7 @@ package com.wm.comp
 				}
 				_tabContents = null;
 			}
+			_curSelectedItem = null;
 		}
 		
 	}
@@ -158,6 +159,15 @@ class TabBtn extends WmLabelBtn implements IListItemRender
 	{
 		super(txt, w, h);
 	}
+	
+	/* INTERFACE com.wm.base.IListItemRender */
+	
+	public function get data():Object 
+	{
+		return null;
+	}
+	
+	public function set data(value:Object):void { }
 	
 	override protected function initComp(w:int, h:int):void 
 	{
@@ -233,5 +243,11 @@ class TabBtn extends WmLabelBtn implements IListItemRender
 	public function set content(value:ISprContent):void 
 	{
 		_content = value;
+	}
+	
+	override public function dispose():void 
+	{
+		_content = null;
+		super.dispose();
 	}
 }

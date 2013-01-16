@@ -3,6 +3,7 @@ package com.wm.comp
 	import com.wm.assets.Assets;
 	import com.wm.base.IListItemRender;
 	import com.wm.base.IScroll;
+	import com.wm.evt.WmCompEvt;
 	import com.wm.itemrender.ListItemRender;
 	import com.wm.utils.BitmapDataUtil;
 	import com.wm.utils.EventListenerUtil;
@@ -35,8 +36,20 @@ package com.wm.comp
 		protected var _evtUtil:EventListenerUtil;
 		protected var _curSelectedItem:IListItemRender;//当前被选中的列表元素
 		
-		public function WmList(w:int = 100, h:int = 100) 
+		protected var _maxRow:int;//最大行数
+		protected var _rowHeight:int;//最大行数
+		
+		/**
+		 * 列表
+		 * @param	w
+		 * @param	h
+		 * @param	maxRow		为-1则自动显示当前的最大列表数，为0则显示固定高宽列表，>0则是定行数的显示列表
+		 * @param	rowHeight	每一行的高
+		 */
+		public function WmList(w:int = 100, h:int = 100, maxRow:int = 4, rowHeight:int = 22) 
 		{
+			_maxRow = maxRow;
+			_rowHeight = rowHeight;
 			_evtUtil = new EventListenerUtil();
 			_listWidth = w;
 			_listHeight = h;
@@ -49,9 +62,14 @@ package com.wm.comp
 			_itemPools = [];
 			_itemX = 1;
 			_itemY = 1;
+			if (_maxRow > 0) 
+			{
+				_listHeight = _maxRow * _rowHeight + _itemX * 2;
+			}
+			
 			_listBg = new Bitmap();
 			addChild(_listBg);
-			flushBarPosition();
+			flushListStyle();
 			_itemContent = new WmSprite();
 			addChild(_itemContent);
 			_itemContent.x = _itemX;
@@ -89,7 +107,7 @@ package com.wm.comp
 				item.selected = true;
 				_curSelectedItem = item;
 				
-				this.dispatchEvent(new Event(Event.CHANGE));//更换选中对象
+				this.dispatchEvent(new WmCompEvt(WmCompEvt.CHANGE, item));//更换选中对象
 			}
 		}
 		
@@ -113,7 +131,7 @@ package com.wm.comp
 			_listMask.height = _itemContent.sprHeight;
 		}
 		
-		protected function flushBarPosition():void 
+		protected function flushListStyle():void 
 		{
 			_listBg.bitmapData = getStyle("list_bg_def");
 		}
@@ -326,6 +344,8 @@ package com.wm.comp
 				item = null;
 			}
 			_itemPools = null;
+			_scrollPosition = null;
+			_curSelectedItem = null;
 			
 			super.dispose();
 			_listMask = null;

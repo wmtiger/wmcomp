@@ -121,6 +121,15 @@ package com.wm.comp
 			setSelectedStyle(val);
 		}
 		
+		/**
+		 * 设置文本格式
+		 * @param	fmtObject	格式如下:{ "size":14, "font":"SimSun" }
+		 */
+		public function setLabelFormat(fmtObject:Object):void
+		{
+			_txt.setFormat(fmtObject);
+		}
+		
 		public function get autoWidth():Boolean 
 		{
 			return _autoWidth;
