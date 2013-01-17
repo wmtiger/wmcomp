@@ -37,13 +37,13 @@ package com.wm.comp
 		protected var _curSelectedItem:IListItemRender;//当前被选中的列表元素
 		
 		protected var _maxRow:int;//最大行数
-		protected var _rowHeight:int;//最大行数
+		protected var _rowHeight:int;//当前每行的高
 		
 		/**
 		 * 列表
 		 * @param	w
 		 * @param	h
-		 * @param	maxRow		为-1则自动显示当前的最大列表数，为0则显示固定高宽列表，>0则是定行数的显示列表
+		 * @param	maxRow		为0则显示固定高宽列表，>0则是定行数的显示列表,如果数据行数小于maxRow则自动显示当前行数
 		 * @param	rowHeight	每一行的高
 		 */
 		public function WmList(w:int = 100, h:int = 100, maxRow:int = 4, rowHeight:int = 22) 

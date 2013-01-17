@@ -94,6 +94,25 @@ package com.wm.comp
 			drawGraphic();
 		}
 		
+		override protected function drawGraphic(bmd:BitmapData = null, type:String = "normal"):void
+		{
+			this.graphics.clear();
+			if (bmd) 
+			{
+				this.graphics.beginBitmapFill(bmd, null, false);
+			}
+			else
+			{
+				if (compWidth == 0 || compHeight == 0) 
+				{
+					return;
+				}
+				this.graphics.beginFill(0x0000cc, 0);
+			}
+			this.graphics.drawRect(0, 0, compWidth, compHeight);
+			this.graphics.endFill();
+		}
+		
 		public function get label():String 
 		{
 			return _label;

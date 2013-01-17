@@ -35,7 +35,6 @@ package com.wm.comp
 		
 		private function onChange(e:Event):void 
 		{
-			trace("aa");
 			chkScrollVisible();
 		}
 		

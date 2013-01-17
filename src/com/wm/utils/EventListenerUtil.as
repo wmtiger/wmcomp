@@ -21,7 +21,7 @@ package com.wm.utils
 		 */
 		public function addEventListener(target:IEventDispatcher, eventType:String, listener:Function):void
 		{
-			if (target&&listener&&eventType&&eventType.length>0)
+			if (target && listener && eventType && eventType.length > 0)
 			{
 				var eventMode:EventModel = new EventModel(target, eventType, listener);
 				target.addEventListener(eventType,listener)

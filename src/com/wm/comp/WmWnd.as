@@ -1,10 +1,13 @@
 package com.wm.comp 
 {
 	import com.wm.base.IDispose;
+	import com.wm.mgr.WmCompMgr;
 	import com.wm.utils.BitmapDataUtil;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
+	import flash.events.MouseEvent;
+	import flash.geom.Rectangle;
 	/**
 	 * 窗口
 	 * @author wmtiger
@@ -13,18 +16,17 @@ package com.wm.comp
 	{
 		private var _pivotX:int;//实际的注册点
 		private var _pivotY:int;
+		private var _titleBar:WmSprite;
 		private var _title:String;
 		private var _titleTxt:WmText;
-		private var _closeBtn:WmBtn;//关闭按钮
-		private var _maxBtn:WmBtn;//最大化按钮
-		private var _minBtn:WmBtn;//最小化按钮
+		protected var _titleRect:Rectangle;
+		protected var _closeBtn:WmBtn;//关闭按钮
+		protected var _maxBtn:WmBtn;//最大化按钮
+		protected var _minBtn:WmBtn;//最小化按钮
 		private var _maxable:Boolean;//是否可以最大化
 		private var _minable:Boolean;//是否可以最小化
 		private var _content:WmSprite;//内容
-		private var _contentLeft:int;//内容面板的位置
-		private var _contentRight:int;
-		private var _contentTop:int;
-		private var _contentBottom:int;
+		protected var _contentRect:Rectangle;//内容面板的位置
 		
 		public function WmWnd(title:String = "", w:int = 480, h:int = 360) 
 		{
@@ -45,25 +47,77 @@ package com.wm.comp
 		
 		protected function initWnd():void 
 		{
+			initWndInfo();
+			initTitle();
+			initCloseBtn();
+			initMaxBtn();
+			initMinBtn();
+			setDefStyle();
+			setContent();
+		}
+		
+		protected function initWndInfo():void
+		{
+			//初始化注册点
 			_pivotX = 16;
 			_pivotY = 13;
-			_titleTxt = new WmText(_title, _pivotX + 9, _pivotY + 9, compWidth - _pivotX * 2 - 8);
-			addChild(_titleTxt);
-			_titleTxt.selectable = false;
-			
+			//初始化内容面板位置以及大小
+			_contentRect = new Rectangle(24, 45, compWidth - 24 - 24, compHeight - 45 - 25);
+			//初始化标题位置
+			_titleRect = new Rectangle(0, 0, compWidth, 45);
+		}
+		
+		protected function initTitle():void
+		{
+			_titleBar = new WmSprite();
+			_titleBar.setWH(_titleRect.width, _titleRect.height, true);
+			addElement(_titleBar);
+			_evtUtil.addEventListener(_titleBar, MouseEvent.MOUSE_DOWN, onTitleDown);
+			_titleBar.mouseChildren = false;
+			_titleTxt = new WmText();
+			_titleTxt.setText(_title, true, true);
+			_titleBar.addElement(_titleTxt);
+			flushTitlePosition();
+		}
+		private function onTitleUp(e:MouseEvent):void 
+		{
+			_evtUtil.removeEventListener(WmCompMgr.instance.getStage(), MouseEvent.MOUSE_UP, onTitleUp);
+			this.stopDrag();
+		}
+		private function onTitleDown(e:MouseEvent):void 
+		{
+			_evtUtil.addEventListener(WmCompMgr.instance.getStage(), MouseEvent.MOUSE_UP, onTitleUp);
+			this.startDrag();
+		}
+		//刷新标题文本位置
+		protected function flushTitlePosition():void 
+		{
+			_titleTxt.x = ((_titleRect.width - _titleTxt.width) >> 1);
+			_titleTxt.y = ((_titleRect.height - _titleTxt.height) >> 1);
+		}
+		protected function flushTitleProp(obj:Object):void
+		{
+			_titleTxt.setFormat(obj);
+		}
+		
+		protected function initCloseBtn():void
+		{
 			_closeBtn = new WmBtn(64, 36);
 			_closeBtn.style = "btn_close";
-			addChild(_closeBtn);
+			addElement(_closeBtn);
 			_closeBtn.right = 16;
 			_closeBtn.top = 5;
 			_closeBtn.clickHandler = function ():void 
 			{
 				closeWnd();
 			}
-			
+		}
+		
+		protected function initMaxBtn():void
+		{
 			_maxBtn = new WmBtn(43, 36);
 			_maxBtn.style = "btn_max";
-			addChild(_maxBtn);
+			addElement(_maxBtn);
 			_maxBtn.right = 64;
 			_maxBtn.top = 5;
 			_maxBtn.clickHandler = function ():void 
@@ -71,10 +125,13 @@ package com.wm.comp
 				maxWnd();
 			}
 			maxable = false;
-			
+		}
+		
+		protected function initMinBtn():void
+		{
 			_minBtn = new WmBtn(44, 36);
 			_minBtn.style = "btn_min";
-			addChild(_minBtn);
+			addElement(_minBtn);
 			_minBtn.right = 91;
 			_minBtn.top = 5;
 			_minBtn.clickHandler = function ():void 
@@ -82,22 +139,15 @@ package com.wm.comp
 				minWnd();
 			}
 			minable = false;
-			
-			setDefStyle();
-			
-			setContent();
 		}
 		
-		//皮肤素材不同，会导致_contentLeft等参数不同，需要覆盖重写
+		//皮肤素材不同，会导致_contentRect等参数不同，需要覆盖重写
 		protected function setContent():void 
 		{
-			_contentLeft = _contentRight = 24;
-			_contentTop = 45;
-			_contentBottom = 25;
 			_content = new WmSprite();
-			addChild(_content);
-			_content.left = _contentLeft;
-			_content.top = _contentTop;
+			addElement(_content);
+			_content.left = _contentRect.x;
+			_content.top = _contentRect.y;
 			flushWH();
 		}
 		
@@ -110,8 +160,7 @@ package com.wm.comp
 		{
 			if (_content) 
 			{
-				_content.setWH(compWidth - _contentLeft - _contentRight, 
-						compHeight - _contentTop - _contentBottom, true);
+				_content.setWH(_contentRect.width, _contentRect.height, true);
 			}
 		}
 		
@@ -141,9 +190,7 @@ package com.wm.comp
 		
 		public function addElementToContent(disp:DisplayObject, x:int = 0, y:int = 0):void
 		{
-			_content.addChild(disp);
-			disp.x = x;
-			disp.y = y;
+			_content.addElement(disp, x, y);
 		}
 		
 		public function removeElementFromContent(disp:DisplayObject, dispose:Boolean = false):void
