@@ -1,7 +1,8 @@
-package test 
+package com.wm.test 
 {
 	import com.wm.comp.WmLabelBtn;
 	import com.wm.comp.WmRadioGroup;
+	import com.wm.test.YTextInput;
 	/**
 	 * ...
 	 * @author wmtiger
@@ -51,7 +52,11 @@ package test
 			_radio2.left = 100;
 			_radio2.top = 25;
 			
-			
+			var txtInput:YTextInput = new YTextInput();
+			addElementToContent(txtInput);
+			txtInput.setTxtFormat({"color":0xffffff});
+			txtInput.left = 10;
+			txtInput.top = 100;
 		}
 		
 	}

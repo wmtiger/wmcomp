@@ -122,6 +122,9 @@ package com.wm.assets
 		//wnd
 		[Embed(source = "assets.swf", symbol = "ytjh_window_normal")]
 		public const ytjh_window_normal:Class;
+		//bg
+		[Embed(source = "assets.swf", symbol = "ytjh_bg_normal")]
+		public const ytjh_bg_normal:Class;
 		//chkbox
 		[Embed(source = "assets.swf", symbol = "ytjh_chkbox_normal")]
 		public const ytjh_chkbox_normal:Class;

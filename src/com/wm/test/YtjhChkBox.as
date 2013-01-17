@@ -1,4 +1,4 @@
-package test 
+package com.wm.test
 {
 	import com.wm.comp.WmChkBox;
 	

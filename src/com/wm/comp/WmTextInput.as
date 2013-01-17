@@ -27,11 +27,16 @@ package com.wm.comp
 			init();
 		}
 		
-		protected function init():void 
+		protected function initInfo():void
 		{
 			_itemX = 2;
 			_itemY = 2;
 			style = "txt_def";
+		}
+		
+		protected function init():void 
+		{
+			initInfo();
 			_input = new WmInput();
 			addChild(_input);
 			_input.x = _itemX;
@@ -95,6 +100,11 @@ package com.wm.comp
 		{
 			_input.multiline = val;
 			_input.wordWrap = val;
+		}
+		
+		public function setTxtFormat(obj:Object):void
+		{
+			_input.setFormat(obj);
 		}
 		
 		public function set size(val:Object):void

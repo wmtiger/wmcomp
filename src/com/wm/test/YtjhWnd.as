@@ -1,4 +1,4 @@
-package test 
+package com.wm.test
 {
 	import com.wm.comp.WmBtn;
 	import com.wm.comp.WmWnd;
