@@ -1,4 +1,4 @@
-package test 
+package com.wm.test 
 {
 	import adobe.utils.CustomActions;
 	import com.wm.base.ISprContent;
