@@ -11,10 +11,12 @@ package com.wm.mgr
 		private static var _instance:AssetsMgr;
 		
 		private var _table:HashTable;
+		private var _assetsTable:HashTable;
 		
 		public function AssetsMgr() 
 		{
 			_table = new HashTable();
+			_assetsTable = new HashTable();
 		}
 		
 		static public function get instance():AssetsMgr 
@@ -24,6 +26,11 @@ package com.wm.mgr
 				_instance = new AssetsMgr();
 			}
 			return _instance;
+		}
+		
+		public function addAsset(name:String, assets:IAssets):void
+		{
+			
 		}
 		
 		/**
