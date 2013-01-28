@@ -16,7 +16,7 @@ package com.wm.comp
 		
 		protected function initPanel():void 
 		{
-			this.style = "list_bg_def";
+			this.style = "def_list_bg";
 		}
 		
 	}

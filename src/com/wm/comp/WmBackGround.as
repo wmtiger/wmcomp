@@ -1,6 +1,7 @@
 package com.wm.comp 
 {
 	import com.wm.assets.Assets;
+	import com.wm.mgr.AssetsMgr;
 	import com.wm.utils.BitmapDataUtil;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -32,7 +33,8 @@ package com.wm.comp
 				drawGraphic();//此处要注意画的背景图是矢量透明图，在移动平台可能要修改
 				return;
 			}
-			var bmp:Bitmap = Assets.instance.getSkinByType(style, type) as Bitmap;
+			//var bmp:Bitmap = Assets.instance.getSkinByType(style, type) as Bitmap;
+			var bmp:Bitmap = AssetsMgr.instance.getSkinByAssetName(style.split("_")[0], style, type);
 			if (bmp) 
 			{
 				_bmd = getBgBmd(bmp);

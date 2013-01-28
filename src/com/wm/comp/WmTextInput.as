@@ -31,7 +31,7 @@ package com.wm.comp
 		{
 			_itemX = 2;
 			_itemY = 2;
-			style = "txt_def";
+			style = "def_txt";
 		}
 		
 		protected function init():void 

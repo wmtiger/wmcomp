@@ -5,6 +5,7 @@ package com.wm.comp
 	import com.wm.base.IScroll;
 	import com.wm.evt.WmCompEvt;
 	import com.wm.itemrender.ListItemRender;
+	import com.wm.mgr.AssetsMgr;
 	import com.wm.utils.BitmapDataUtil;
 	import com.wm.utils.EventListenerUtil;
 	import flash.display.Bitmap;
@@ -133,12 +134,13 @@ package com.wm.comp
 		
 		protected function flushListStyle():void 
 		{
-			_listBg.bitmapData = getStyle("list_bg_def");
+			_listBg.bitmapData = getStyle("def_list_bg");
 		}
 		
 		protected function getStyle(style:String):BitmapData
 		{
-			var bmp:Bitmap = Assets.instance.getSkinByType(style, "normal") as Bitmap;
+			//var bmp:Bitmap = Assets.instance.getSkinByType(style, "normal") as Bitmap;
+			var bmp:Bitmap = AssetsMgr.instance.getSkinByAssetName(style.split("_")[0], style, "normal");
 			if (bmp == null) return null;
 			if (chkBgBmd(bmp)) 
 			{

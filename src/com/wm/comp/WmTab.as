@@ -63,7 +63,7 @@ package com.wm.comp
 			{
 				var obj:Object = arr[i];
 				var btn:TabBtn = new TabBtn(obj.name + "", obj.w, obj.h);
-				btn.style = "btn_tab";
+				btn.style = "def_btn_tab";
 				btn.selected = false;
 				btn.content = obj.content;
 				_tabBar.addElement(btn, i * (tabBtnWidth + tabBtnGap));
@@ -172,7 +172,7 @@ class TabBtn extends WmLabelBtn implements IListItemRender
 	override protected function initComp(w:int, h:int):void 
 	{
 		setWH(w, h, true);
-		style = "btn_tab";
+		style = "def_btn_tab";
 		
 		this.mouseChildren = false;
 		this.buttonMode = false;

@@ -3,6 +3,7 @@ package com.wm.comp
 	import com.wm.assets.Assets;
 	import com.wm.base.IDispose;
 	import com.wm.base.IPosition;
+	import com.wm.mgr.AssetsMgr;
 	import com.wm.utils.EventListenerUtil;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -88,7 +89,8 @@ package com.wm.comp
 			var bmp:Bitmap;
 			for (var i:int = 0; i < STYLE_LIST.length; i++) 
 			{
-				bmp = Assets.instance.getSkinByType(style, STYLE_LIST[i]) as Bitmap;
+				//bmp = Assets.instance.getSkinByType(style, STYLE_LIST[i]) as Bitmap;
+				bmp = AssetsMgr.instance.getSkinByAssetName(style.split("_")[0], style, STYLE_LIST[i]);
 				if (bmp) 
 				{
 					if (this["_" + STYLE_LIST[i] + "Bmd"]) 

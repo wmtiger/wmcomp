@@ -1,6 +1,7 @@
 package com.wm.comp 
 {
 	import com.wm.assets.Assets;
+	import com.wm.mgr.AssetsMgr;
 	import com.wm.utils.BitmapDataUtil;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -40,7 +41,7 @@ package com.wm.comp
 			_bar = new Bitmap();
 			addChild(_bar);
 			_slider = new WmBtn(14, 20);
-			_slider.style = "slider_def";
+			_slider.style = "def_slider";
 			addChild(_slider);
 			_slider.buttonMode = false;
 			flushBarPosition();
@@ -64,13 +65,14 @@ package com.wm.comp
 		
 		private function flushBarPosition():void 
 		{
-			_bar.bitmapData = getBarStyle("sliderBar_def");
+			_bar.bitmapData = getBarStyle("def_sliderBar");
 			_bar.y = _slider.height - _bar.height >> 1;
 		}
 		
 		protected function getBarStyle(style:String):BitmapData
 		{
-			var bmp:Bitmap = Assets.instance.getSkinByType(style, "normal") as Bitmap;
+			//var bmp:Bitmap = Assets.instance.getSkinByType(style, "normal") as Bitmap;
+			var bmp:Bitmap = AssetsMgr.instance.getSkinByAssetName(style.split("_")[0], style, "normal");
 			if (bmp == null) return null;
 			if (chkBgBmd(bmp)) 
 			{

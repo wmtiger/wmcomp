@@ -103,7 +103,7 @@ package com.wm.comp
 		protected function initCloseBtn():void
 		{
 			_closeBtn = new WmBtn(64, 36);
-			_closeBtn.style = "btn_close";
+			_closeBtn.style = "def_btn_close";
 			addElement(_closeBtn);
 			_closeBtn.right = 16;
 			_closeBtn.top = 5;
@@ -116,7 +116,7 @@ package com.wm.comp
 		protected function initMaxBtn():void
 		{
 			_maxBtn = new WmBtn(43, 36);
-			_maxBtn.style = "btn_max";
+			_maxBtn.style = "def_btn_max";
 			addElement(_maxBtn);
 			_maxBtn.right = 64;
 			_maxBtn.top = 5;
@@ -130,7 +130,7 @@ package com.wm.comp
 		protected function initMinBtn():void
 		{
 			_minBtn = new WmBtn(44, 36);
-			_minBtn.style = "btn_min";
+			_minBtn.style = "def_btn_min";
 			addElement(_minBtn);
 			_minBtn.right = 91;
 			_minBtn.top = 5;
@@ -176,7 +176,7 @@ package com.wm.comp
 		//如果要自定义窗体，则将此方法覆盖为空方法，再行修改style
 		protected function setDefStyle():void
 		{
-			style = "wnd_def";
+			style = "def_wnd";
 		}
 		
 		override protected function getBgBmd(bmp:Bitmap):BitmapData 
@@ -264,6 +264,7 @@ package com.wm.comp
 		{
 			super.dispose();
 			_title = null;
+			_contentRect = null;
 			if (_titleTxt) 
 			{
 				_titleTxt.dispose();

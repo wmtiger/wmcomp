@@ -22,7 +22,7 @@ package com.wm.comp
 		override protected function initComp(w:int, h:int):void 
 		{
 			setWH(w, h, true);
-			style = "btn_def";
+			style = "def_btn";
 			
 			this.mouseChildren = false;
 		}

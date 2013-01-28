@@ -43,14 +43,14 @@ package com.wm.comp
 		protected function initScrollPath():void
 		{
 			_scrollPath = new ScrollPath(sprWidth, sprHeight);
-			_scrollPath.style = "scroll_path_def";
+			_scrollPath.style = "def_scroll_path";
 			addChild(_scrollPath);
 		}
 		protected function initScrollUp():void
 		{
 			_upBtn = new WmBtn(16,16);
 			addChild(_upBtn);
-			_upBtn.style = "scroll_up_def";
+			_upBtn.style = "def_scroll_up";
 			_upBtn.buttonMode = false;
 			_upBtn.x = 1;
 			_upBtn.y = 1;
@@ -63,7 +63,7 @@ package com.wm.comp
 		{
 			_downBtn = new WmBtn(16, 16);
 			addChild(_downBtn);
-			_downBtn.style = "scroll_down_def";
+			_downBtn.style = "def_scroll_down";
 			_downBtn.buttonMode = false;
 			_downBtn.x = 1;
 			_downBtn.clickHandler = function ():void 
@@ -190,7 +190,7 @@ class SliderBtn extends WmBtn
 	override protected function initComp(w:int, h:int):void 
 	{
 		setWH(w, h);
-		style = "scroll_slider_def";
+		style = "def_scroll_slider";
 		
 		this.mouseChildren = false;
 	}

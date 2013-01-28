@@ -17,12 +17,12 @@ package com.wm.comp
 		
 		override protected function initStyle():void 
 		{
-			style = "radiobtn_def";
+			style = "def_radiobtn";
 		}
 		
 		override protected function setSelectedStyle(val:Boolean):void 
 		{
-			style = val ? "radiobtn_def_selected" : "radiobtn_def";
+			style = val ? "def_radiobtn_selected" : "def_radiobtn";
 		}
 		
 		override protected function onCompClick(e:MouseEvent):void 

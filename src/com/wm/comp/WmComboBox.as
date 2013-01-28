@@ -28,7 +28,7 @@ package com.wm.comp
 		override protected function initComp(w:int, h:int):void 
 		{
 			setWH(w, h);
-			style = "combobox";
+			style = "def_combobox";
 			
 			this.mouseChildren = false;
 			initArrow();
@@ -49,7 +49,7 @@ package com.wm.comp
 		protected function initArrow():void
 		{
 			_arrow = new WmBackGround(12, 4);
-			_arrow.style = "combobox_arrow";
+			_arrow.style = "def_combobox_arrow";
 			addChild(_arrow);
 			_arrow.right = 0;
 			_arrow.top = 11;

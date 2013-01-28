@@ -1,8 +1,11 @@
 package com.wm.mgr 
 {
+	import com.wm.base.IAssets;
 	import flash.display.Stage;
 	/**
-	 * ...
+	 * 组件使用方法
+	 * WmCompMgr.instance.init(stage);//初始化stage
+	 * WmCompMgr.instance.addAsset("def", Assets);//初始化皮肤引用
 	 * @author wmTiger
 	 */
 	public class WmCompMgr 
@@ -24,6 +27,10 @@ package com.wm.mgr
 			return _instance;
 		}
 		
+		/**
+		 * 初始化组件
+		 * @param	stage
+		 */
 		public function init(stage:Stage):void
 		{
 			_stage = stage;
@@ -32,6 +39,11 @@ package com.wm.mgr
 		public function getStage():Stage
 		{
 			return _stage;
+		}
+		
+		public function addAsset(name:String, assets:IAssets):void
+		{
+			AssetsMgr.instance.addAsset(name, assets);
 		}
 		
 	}

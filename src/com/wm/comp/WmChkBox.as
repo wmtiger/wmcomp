@@ -1,6 +1,7 @@
 package com.wm.comp 
 {
 	import com.wm.assets.Assets;
+	import com.wm.mgr.AssetsMgr;
 	import com.wm.utils.HashTable;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -42,12 +43,12 @@ package com.wm.comp
 		
 		protected function initStyle():void
 		{
-			style = "chkbox_def";
+			style = "def_chkbox";
 		}
 		
 		protected function setSelectedStyle(val:Boolean):void
 		{
-			style = val ? "chkbox_def_selected" : "chkbox_def";
+			style = val ? "def_chkbox_selected" : "def_chkbox";
 		}
 		
 		override protected function onCompClick(e:MouseEvent):void 
@@ -69,7 +70,8 @@ package com.wm.comp
 			//将四种状态的位图都画好
 			for (var i:int = 0; i < STYLE_LIST.length; i++) 
 			{
-				var bmp:Bitmap = Assets.instance.getSkinByType(style, STYLE_LIST[i]) as Bitmap;
+				//var bmp:Bitmap = Assets.instance.getSkinByType(style, STYLE_LIST[i]) as Bitmap;
+				var bmp:Bitmap = AssetsMgr.instance.getSkinByAssetName(style.split("_")[0], style, STYLE_LIST[i]);
 				//此处不重复缓存位图，且此处位图不需要dispose，只需要设置为null即可，因为使用的数据是静态一份的
 				if (!_bmdList.isHas(style + STYLE_LIST[i])) 
 				{
