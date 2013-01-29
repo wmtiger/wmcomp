@@ -45,6 +45,11 @@ package com.wm.comp
 			_label.y = compHeight - _label.height >> 1;
 		}
 		
+		public function setTxtFormat(obj:Object):void
+		{
+			_label.setFormat(obj);
+		}
+		
 		override public function dispose():void 
 		{
 			_txt = null;
