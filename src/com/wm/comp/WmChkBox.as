@@ -71,7 +71,7 @@ package com.wm.comp
 			for (var i:int = 0; i < STYLE_LIST.length; i++) 
 			{
 				//var bmp:Bitmap = Assets.instance.getSkinByType(style, STYLE_LIST[i]) as Bitmap;
-				var bmp:Bitmap = AssetsMgr.instance.getSkinByAssetName(style.split("_")[0], style, STYLE_LIST[i]);
+				var bmp:BitmapData = AssetsMgr.instance.getSkinByAssetName(style.split("_")[0], style, STYLE_LIST[i]);
 				//此处不重复缓存位图，且此处位图不需要dispose，只需要设置为null即可，因为使用的数据是静态一份的
 				if (!_bmdList.isHas(style + STYLE_LIST[i])) 
 				{
@@ -85,8 +85,8 @@ package com.wm.comp
 		//设置当前要显示的位图,type为:normal, over, down, focusIn
 		override protected function setCrtBgBmd(type:String):void
 		{
-			var bmp:Bitmap = _bmdList.getValue(style + type);
-			_bmp.bitmapData = bmp.bitmapData;
+			var bmp:BitmapData = _bmdList.getValue(style + type);
+			_bmp.bitmapData = bmp;
 			
 			_bmp.y = compHeight - _bmp.height >> 1;
 		}

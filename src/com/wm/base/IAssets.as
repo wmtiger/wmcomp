@@ -1,6 +1,6 @@
 package com.wm.base 
 {
-	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	
 	/**
 	 * 皮肤资源都是位图
@@ -8,7 +8,7 @@ package com.wm.base
 	 */
 	public interface IAssets 
 	{
-		function getSkin(key:String):Bitmap;
+		function getSkin(key:String):BitmapData;
 	}
 	
 }

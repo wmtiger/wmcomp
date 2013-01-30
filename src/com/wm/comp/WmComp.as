@@ -86,7 +86,7 @@ package com.wm.comp
 			}
 			
 			//将四种状态的位图都画好
-			var bmp:Bitmap;
+			var bmp:BitmapData;
 			for (var i:int = 0; i < STYLE_LIST.length; i++) 
 			{
 				//bmp = Assets.instance.getSkinByType(style, STYLE_LIST[i]) as Bitmap;
@@ -116,12 +116,12 @@ package com.wm.comp
 		}
 		
 		//需要改变获取位图的正确图像，必须覆盖此方法
-		protected function getBgBmd(bmp:Bitmap):BitmapData
+		protected function getBgBmd(bmp:BitmapData):BitmapData
 		{
 			return null;
 		}
 		
-		protected function chkBgBmd(bmp:Bitmap):Boolean
+		protected function chkBgBmd(bmp:BitmapData):Boolean
 		{
 			return bmp.width == compWidth && bmp.height == compHeight;
 		}

@@ -72,16 +72,16 @@ package com.wm.comp
 		protected function getBarStyle(style:String):BitmapData
 		{
 			//var bmp:Bitmap = Assets.instance.getSkinByType(style, "normal") as Bitmap;
-			var bmp:Bitmap = AssetsMgr.instance.getSkinByAssetName(style.split("_")[0], style, "normal");
+			var bmp:BitmapData = AssetsMgr.instance.getSkinByAssetName(style.split("_")[0], style, "normal");
 			if (bmp == null) return null;
 			if (chkBgBmd(bmp)) 
 			{
-				return bmp.bitmapData.clone();
+				return bmp.clone();
 			}
-			return BitmapDataUtil.getBitmapData3Grid(bmp.bitmapData, _sliderWidth, _sliderHeight);
+			return BitmapDataUtil.getBitmapData3Grid(bmp, _sliderWidth, _sliderHeight);
 		}
 		
-		protected function chkBgBmd(bmp:Bitmap):Boolean
+		protected function chkBgBmd(bmp:BitmapData):Boolean
 		{
 			return bmp.width == _sliderWidth && bmp.height == _sliderHeight;
 		}

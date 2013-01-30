@@ -93,7 +93,7 @@ package com.wm.comp
 		protected function flushTitlePosition():void 
 		{
 			_titleTxt.x = ((_titleRect.width - _titleTxt.width) >> 1);
-			_titleTxt.y = ((_titleRect.height - _titleTxt.height) >> 1);
+			_titleTxt.y = ((_titleRect.height - _titleTxt.height + _pivotY) >> 1);
 		}
 		protected function flushTitleProp(obj:Object):void
 		{
@@ -179,13 +179,13 @@ package com.wm.comp
 			style = "def_wnd";
 		}
 		
-		override protected function getBgBmd(bmp:Bitmap):BitmapData 
+		override protected function getBgBmd(bmp:BitmapData):BitmapData 
 		{
 			if (chkBgBmd(bmp)) 
 			{
-				return bmp.bitmapData.clone();
+				return bmp.clone();
 			}
-			return BitmapDataUtil.getBitmapData9Grid(bmp.bitmapData, compWidth, compHeight, 30, 30, 90, 30);
+			return BitmapDataUtil.getBitmapData9Grid(bmp, compWidth, compHeight, 30, 30, 90, 30);
 		}
 		
 		public function addElementToContent(disp:DisplayObject, x:int = 0, y:int = 0):void

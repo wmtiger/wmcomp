@@ -94,13 +94,13 @@ package com.wm.comp
 			this.buttonMode = value;
 		}
 		
-		override protected function getBgBmd(bmp:Bitmap):BitmapData 
+		override protected function getBgBmd(bmp:BitmapData):BitmapData 
 		{
 			if (chkBgBmd(bmp)) 
 			{
-				return bmp.bitmapData.clone();
+				return bmp.clone();
 			}
-			return BitmapDataUtil.getBitmapData3Grid(bmp.bitmapData, compWidth, compHeight);
+			return BitmapDataUtil.getBitmapData3Grid(bmp, compWidth, compHeight);
 		}
 		
 		public function set clickHandler(value:Function):void 

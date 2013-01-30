@@ -137,13 +137,13 @@ class ScrollPath extends WmBackGround
 		super(w, h);
 	}
 	
-	override protected function getBgBmd(bmp:Bitmap):BitmapData 
+	override protected function getBgBmd(bmp:BitmapData):BitmapData 
 	{
 		if (chkBgBmd(bmp)) 
 		{
-			return bmp.bitmapData.clone();
+			return bmp.clone();
 		}
-		return BitmapDataUtil.getBitmapData3Grid(bmp.bitmapData, sprWidth, sprHeight, "tb", 5, 5);
+		return BitmapDataUtil.getBitmapData3Grid(bmp, sprWidth, sprHeight, "tb", 5, 5);
 	}
 }
 
@@ -195,12 +195,12 @@ class SliderBtn extends WmBtn
 		this.mouseChildren = false;
 	}
 	
-	override protected function getBgBmd(bmp:Bitmap):BitmapData 
+	override protected function getBgBmd(bmp:BitmapData):BitmapData 
 	{
 		if (chkBgBmd(bmp)) 
 		{
-			return bmp.bitmapData.clone();
+			return bmp.clone();
 		}
-		return BitmapDataUtil.getBitmapData3Grid(bmp.bitmapData, compWidth, compHeight, "tp", 5, 5);
+		return BitmapDataUtil.getBitmapData3Grid(bmp, compWidth, compHeight, "tp", 5, 5);
 	}
 }

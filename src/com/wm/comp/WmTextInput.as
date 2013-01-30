@@ -86,13 +86,13 @@ package com.wm.comp
 			_input.width = compWidth - _itemX - _input.x;
 		}
 		
-		override protected function getBgBmd(bmp:Bitmap):BitmapData 
+		override protected function getBgBmd(bmp:BitmapData):BitmapData 
 		{
 			if (chkBgBmd(bmp)) 
 			{
-				return bmp.bitmapData.clone();
+				return bmp.clone();
 			}
-			return BitmapDataUtil.getBitmapData9Grid(bmp.bitmapData, compWidth, compHeight, 5, 5, 5, 5);
+			return BitmapDataUtil.getBitmapData9Grid(bmp, compWidth, compHeight, 5, 5, 5, 5);
 		}
 		
 		//是否多行文本，提供TextArea使用

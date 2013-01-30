@@ -3,7 +3,6 @@ package com.wm.comp
 	import com.wm.assets.Assets;
 	import com.wm.mgr.AssetsMgr;
 	import com.wm.utils.BitmapDataUtil;
-	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Shape;
 	
@@ -33,11 +32,10 @@ package com.wm.comp
 				drawGraphic();//此处要注意画的背景图是矢量透明图，在移动平台可能要修改
 				return;
 			}
-			//var bmp:Bitmap = Assets.instance.getSkinByType(style, type) as Bitmap;
-			var bmp:Bitmap = AssetsMgr.instance.getSkinByAssetName(style.split("_")[0], style, type);
-			if (bmp) 
+			var bmd:BitmapData = AssetsMgr.instance.getSkinByAssetName(style.split("_")[0], style, type);
+			if (bmd) 
 			{
-				_bmd = getBgBmd(bmp);
+				_bmd = getBgBmd(bmd);
 				drawGraphic(_bmd);
 			}
 		}
@@ -61,17 +59,17 @@ package com.wm.comp
 		}
 		
 		//需要改变获取位图的正确图像，必须覆盖此方法
-		protected function getBgBmd(bmp:Bitmap):BitmapData 
+		protected function getBgBmd(bmd:BitmapData):BitmapData 
 		{
-			if (chkBgBmd(bmp)) 
+			if (chkBgBmd(bmd)) 
 			{
-				return bmp.bitmapData.clone();
+				return bmd.clone();
 			}
-			return BitmapDataUtil.getBitmapData9Grid(bmp.bitmapData, sprWidth, sprHeight, 10, 10, 10, 10);
+			return BitmapDataUtil.getBitmapData9Grid(bmd, sprWidth, sprHeight, 10, 10, 10, 10);
 		}
-		protected function chkBgBmd(bmp:Bitmap):Boolean
+		protected function chkBgBmd(bmd:BitmapData):Boolean
 		{
-			return bmp.width == sprWidth && bmp.height == sprHeight;
+			return bmd.width == sprWidth && bmd.height == sprHeight;
 		}
 		
 		/**

@@ -140,16 +140,16 @@ package com.wm.comp
 		protected function getStyle(style:String):BitmapData
 		{
 			//var bmp:Bitmap = Assets.instance.getSkinByType(style, "normal") as Bitmap;
-			var bmp:Bitmap = AssetsMgr.instance.getSkinByAssetName(style.split("_")[0], style, "normal");
+			var bmp:BitmapData = AssetsMgr.instance.getSkinByAssetName(style.split("_")[0], style, "normal");
 			if (bmp == null) return null;
 			if (chkBgBmd(bmp)) 
 			{
-				return bmp.bitmapData.clone();
+				return bmp.clone();
 			}
-			return BitmapDataUtil.getBitmapData9Grid(bmp.bitmapData, _listWidth, _listHeight, 5, 5, 5, 5);
+			return BitmapDataUtil.getBitmapData9Grid(bmp, _listWidth, _listHeight, 5, 5, 5, 5);
 		}
 		
-		protected function chkBgBmd(bmp:Bitmap):Boolean
+		protected function chkBgBmd(bmp:BitmapData):Boolean
 		{
 			return bmp.width == _listWidth && bmp.height == _listHeight;
 		}

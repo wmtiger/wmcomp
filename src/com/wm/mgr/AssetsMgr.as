@@ -2,7 +2,7 @@ package com.wm.mgr
 {
 	import com.wm.base.IAssets;
 	import com.wm.utils.HashTable;
-	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	/**
 	 * 组件的资源管理器
 	 * @author wmTiger
@@ -11,8 +11,8 @@ package com.wm.mgr
 	{
 		private static var _instance:AssetsMgr;
 		
-		private var _table:HashTable;//具体皮肤的集合
-		private var _assetsTable:HashTable;//皮肤资源引用的集合
+		private var _table:HashTable;//具体皮肤的集合(Embed进来的bitmap)
+		private var _assetsTable:HashTable;//皮肤资源引用的集合(Embed进来的bitmap,具体的k/v对，也是bitmap的)
 		
 		public function AssetsMgr() 
 		{
@@ -76,10 +76,10 @@ package com.wm.mgr
 		 * @param	type		style类型:over, down, normal, focusIn 中的一个
 		 * @return
 		 */
-		public function getSkinByAssetName(name:String, style:String, type:String = "normal"):Bitmap
+		public function getSkinByAssetName(name:String, style:String, type:String = "normal"):BitmapData
 		{
 			var key:String = style + "_" + type;
-			var skin:Bitmap;
+			var skin:BitmapData;
 			if (!_table.isHas(key)) 
 			{
 				var asset:IAssets = getAsset(name);
@@ -94,7 +94,7 @@ package com.wm.mgr
 			}
 			else 
 			{
-				skin = getSkin(key) as Bitmap;
+				skin = getSkin(key) as BitmapData;
 			}
 			return skin;
 		}
