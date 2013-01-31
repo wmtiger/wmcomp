@@ -4,6 +4,9 @@ package com.wm.comp
 	import com.wm.utils.HashTable;
 	/**
 	 * 物品格子的组
+	 * eg:
+	 * var gridGroup:WmGirdGroup = new WmGirdGroup(WmGrid, 3, 4);
+	 * addElement(gridGroup);
 	 * @author wmtiger
 	 */
 	public class WmGirdGroup extends WmSprite
