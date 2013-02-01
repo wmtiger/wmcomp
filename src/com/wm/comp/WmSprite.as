@@ -3,6 +3,8 @@ package com.wm.comp
 	import com.wm.base.IDispose;
 	import com.wm.base.IPosition;
 	import com.wm.base.ISprContent;
+	import com.wm.mgr.AssetsMgr;
+	import com.wm.utils.BitmapDataUtil;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
@@ -44,6 +46,48 @@ package com.wm.comp
 			this.graphics.beginFill(0, 0);
 			this.graphics.drawRect(0, 0, _sprWidth, _sprHeight);
 			this.graphics.endFill();
+		}
+		
+		/**
+		 * 获取就一张普通底图的位图
+		 * @param	style
+		 * @return
+		 */
+		protected function getNormalStyle(style:String, gridType:int = 9):BitmapData
+		{
+			var bmp:BitmapData = AssetsMgr.instance.getSkinByAssetName(style.split("_")[0], style, "normal");
+			if (bmp == null) return null;
+			//if (chkBgBmd(bmp)) 
+			//{
+				//return bmp.clone();
+			//}
+			return getBmdData(bmp, gridType);
+		}
+		
+		/**
+		 * 获取位图
+		 * @param	bmd
+		 * @param	gridType		是9宫格还是3宫格
+		 * @return
+		 */
+		protected function getBmdData(bmd:BitmapData, gridType:int):BitmapData
+		{
+			var tmp:BitmapData;
+			if (gridType == 3) 
+				tmp = getBmd3Grid(bmd);
+			else
+				tmp = getBmd9Grid(bmd);
+			return tmp;
+		}
+		
+		protected function getBmd3Grid(bmd:BitmapData, dir:String = "lr"):BitmapData
+		{
+			return BitmapDataUtil.getBitmapData3Grid(bmd, _sprWidth, _sprHeight, dir, 5, 5);
+		}
+		
+		protected function getBmd9Grid(bmd:BitmapData):BitmapData
+		{
+			return BitmapDataUtil.getBitmapData9Grid(bmd, _sprWidth, _sprHeight, 5, 5, 5, 5);
 		}
 		
 		public function get sprWidth():int 

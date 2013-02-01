@@ -117,11 +117,19 @@ package com.wm.comp
 		 */
 		public function flushSliderHeight(p:Number):void 
 		{
+			//var oldPositionProcess:Number = 0;
+			//trace("flushSliderHeight->",(_sliderBtn.y - (_upBtn.y + _upBtn.height + _space)), _sliderRect.height, (_sliderBtn.y - (_upBtn.y + _upBtn.height + _space)) / _sliderRect.height);
+			//if (_sliderRect.height > 0) 
+			//{
+				//oldPositionProcess = (_sliderBtn.y - (_upBtn.y + _upBtn.height + _space)) / _sliderRect.height;//早先的位置百分比
+			//}
 			var h:int = _sliderSpace * p;
 			_sliderBtn.setWH(16, h , true);
 			_sliderRect.x = _sliderBtn.x;
 			_sliderRect.y = _upBtn.y + _upBtn.height + _space;
 			_sliderRect.height = _sliderSpace - _sliderBtn.compHeight;
+			
+			//_sliderBtn.y = _upBtn.y + _upBtn.height + _space + oldPositionProcess * _sliderSpace;
 		}
 		
 	}

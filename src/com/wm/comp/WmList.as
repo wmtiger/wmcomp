@@ -139,7 +139,6 @@ package com.wm.comp
 		
 		protected function getStyle(style:String):BitmapData
 		{
-			//var bmp:Bitmap = Assets.instance.getSkinByType(style, "normal") as Bitmap;
 			var bmp:BitmapData = AssetsMgr.instance.getSkinByAssetName(style.split("_")[0], style, "normal");
 			if (bmp == null) return null;
 			if (chkBgBmd(bmp)) 
