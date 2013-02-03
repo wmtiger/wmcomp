@@ -44,6 +44,7 @@ package com.wm.comp
 		{
 			_scrollPath = new ScrollPath(sprWidth, sprHeight);
 			_scrollPath.style = "def_scroll_path";
+			_scrollPath.setWH(sprWidth, sprHeight, true);
 			addChild(_scrollPath);
 		}
 		protected function initScrollUp():void
@@ -103,12 +104,19 @@ package com.wm.comp
 		{
 			_sliderSpace = sprHeight - _upBtn.height - _downBtn.height - 4;
 			
-			_scrollPath.setWH(sprWidth, sprHeight, true);
+			//_scrollPath.setWH(sprWidth, sprHeight, true);
 			
 			_downBtn.y = sprHeight - 1 - _downBtn.height;
 			
-			_sliderBtn.y = _upBtn.y + _upBtn.height + _space + _progress * _sliderSpace;
+			//_sliderBtn.y = _upBtn.y + _upBtn.height + _space + _progress * _sliderSpace;
+			flushSliderBtnY(_progress);
 			
+		}
+		
+		public function flushSliderBtnY(p:Number):void
+		{
+			_progress = p;
+			_sliderBtn.y = _sliderRect.y + int(_progress * _sliderRect.height);
 		}
 		
 		/**
@@ -117,19 +125,13 @@ package com.wm.comp
 		 */
 		public function flushSliderHeight(p:Number):void 
 		{
-			//var oldPositionProcess:Number = 0;
-			//trace("flushSliderHeight->",(_sliderBtn.y - (_upBtn.y + _upBtn.height + _space)), _sliderRect.height, (_sliderBtn.y - (_upBtn.y + _upBtn.height + _space)) / _sliderRect.height);
-			//if (_sliderRect.height > 0) 
-			//{
-				//oldPositionProcess = (_sliderBtn.y - (_upBtn.y + _upBtn.height + _space)) / _sliderRect.height;//早先的位置百分比
-			//}
 			var h:int = _sliderSpace * p;
 			_sliderBtn.setWH(16, h , true);
 			_sliderRect.x = _sliderBtn.x;
 			_sliderRect.y = _upBtn.y + _upBtn.height + _space;
 			_sliderRect.height = _sliderSpace - _sliderBtn.compHeight;
 			
-			//_sliderBtn.y = _upBtn.y + _upBtn.height + _space + oldPositionProcess * _sliderSpace;
+			flushSliderBtnY(_progress);
 		}
 		
 	}

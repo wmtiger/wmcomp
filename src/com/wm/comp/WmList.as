@@ -8,6 +8,7 @@ package com.wm.comp
 	import com.wm.mgr.AssetsMgr;
 	import com.wm.utils.BitmapDataUtil;
 	import com.wm.utils.EventListenerUtil;
+	import com.wm.utils.WMath;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Shape;
@@ -32,13 +33,14 @@ package com.wm.comp
 		protected var _listMask:Shape;//list列表的遮罩
 		protected var _itemPools:Array;//item的pool池
 		
-		protected var _scrollPosition:String;//滚动条位置
+		protected var _scrollPosition:String;//滚动条位置（左右）
 		protected var _scroll:WmScroll;//滚动条
 		protected var _evtUtil:EventListenerUtil;
 		protected var _curSelectedItem:IListItemRender;//当前被选中的列表元素
 		
 		protected var _maxRow:int;//最大行数
 		protected var _rowHeight:int;//当前每行的高
+		protected var _process:Number;//当前显示容器的滚动的百分比
 		
 		/**
 		 * 列表
@@ -87,6 +89,22 @@ package com.wm.comp
 			
 			setScrollPosition();
 			_evtUtil.addEventListener(_itemContent, MouseEvent.CLICK, onClickContent);
+			_evtUtil.addEventListener(_itemContent, MouseEvent.MOUSE_WHEEL, onWheelContent);
+		}
+		
+		private function onWheelContent(e:MouseEvent):void 
+		{
+			trace(e.delta);
+			if (e.delta > 0) 
+			{
+				//往上滚
+				scrollUp(3);
+			}
+			else
+			{
+				//往下滚
+				scrollDown(3);
+			}
 		}
 		
 		private function onClickContent(e:MouseEvent):void 
@@ -258,12 +276,45 @@ package com.wm.comp
 		
 		public function scrollUp(unit:int = 1):void 
 		{
-			
+			if (_itemContent.y < _itemY) 
+			{
+				if (WMath.abs(_itemContent.y) < _rowHeight * unit) 
+				{
+					_itemContent.y = _itemY;
+					_process = 0;
+				}
+				else
+				{
+					_itemContent.y += _rowHeight * unit;
+					_process = -(_itemContent.y - _itemY) / (getItemContentHeight());
+				}
+				_scroll.flushSliderBtnY(_process);
+			}
+		}
+		
+		private function getItemContentHeight():int
+		{
+			return _itemContent.height - listHeight - _itemY * 2;
 		}
 		
 		public function scrollDown(unit:int = 1):void 
 		{
-			
+			//还没好
+			//trace(_itemContent.y - _itemY,getItemContentHeight());
+			if (WMath.abs(_itemContent.y - _itemY) < getItemContentHeight()) 
+			{
+				if (WMath.abs(_itemContent.y - _itemY - _rowHeight * unit) > getItemContentHeight()) 
+				{
+					_itemContent.y = -(_itemContent.height - listHeight) - _itemY;
+					_process = 1;
+				}
+				else
+				{
+					_itemContent.y -= _rowHeight * unit;
+					_process = -(_itemContent.y - _itemY) / (getItemContentHeight());
+				}
+				_scroll.flushSliderBtnY(_process);
+			}
 		}
 		
 		public function scrollPosition(p:Number):void 
@@ -273,7 +324,8 @@ package com.wm.comp
 				_itemContent.y = listHeight - _itemY * 2 - _itemContent.height + _itemY;
 				return;
 			}
-			_itemContent.y = _itemY - (_itemContent.height - listHeight - _itemY * 2) * p;
+			_itemContent.y = _itemY - (getItemContentHeight()) * p;
+			_process = p;
 		}
 		
 		public function setScrollPosition(p:String = "right"):void 
@@ -282,7 +334,7 @@ package com.wm.comp
 			flushScrollPosition();
 		}
 		
-		//刷新滚动条所在的位置以及_itemContent的相对位置
+		//刷新滚动条所在的位置(靠左还是靠右)以及_itemContent的相对位置
 		protected function flushScrollPosition():void
 		{
 			if (_scrollPosition == "left") 
