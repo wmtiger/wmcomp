@@ -7,6 +7,10 @@ package com.wm.comp
 	import flash.events.MouseEvent;
 	/**
 	 * 带背景单行输入框
+	 * eg:
+	 * _ti = new WmTextInput();
+	 * addElementToContent(_ti);
+	 * _ti.right = 0;
 	 * @author wmTiger
 	 */
 	public class WmTextInput extends WmComp 

@@ -16,7 +16,12 @@ package com.wm.comp
 	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
 	/**
-	 * ...
+	 * 列表
+	 * eg:
+	 * var list:WmList = new WmList();
+	 * addElementToContent(list);
+	 * var arr:Array = getTestArr(20);
+	 * list.data = arr;
 	 * @author wmtiger
 	 */
 	public class WmList extends WmSprite implements IScroll

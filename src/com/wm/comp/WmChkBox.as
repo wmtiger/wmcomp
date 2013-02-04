@@ -8,6 +8,12 @@ package com.wm.comp
 	import flash.events.MouseEvent;
 	/**
 	 * 多选框-单行
+	 * eg:
+	 * _chk = new WmChkBox();
+	 * addElementToContent(_chk);
+	 * _chk.bottom = 0;
+	 * _chk.label = "点一下";
+	 * _chk.autoWidth = true;
 	 * @author wmTiger
 	 */
 	public class WmChkBox extends WmComp 

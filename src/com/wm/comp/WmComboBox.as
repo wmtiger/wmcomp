@@ -8,6 +8,10 @@ package com.wm.comp
 	import flash.geom.Point;
 	/**
 	 * combobox的主按钮
+	 * eg:
+	 * var cbbox:WmComboBox = new WmComboBox("", 100);
+	 * cbbox.data = getTestArr(30);
+	 * addElementToContent(cbbox, 260, 50);
 	 * @author wmTiger
 	 */
 	public class WmComboBox extends WmLabelBtn 
@@ -65,6 +69,12 @@ package com.wm.comp
 			label = "" + _data[0].name;
 		}
 		
+		override public function set label(value:String):void 
+		{
+			super.label = value;
+			_label.x = 4;
+		}
+		
 		override protected function onCompClick(e:MouseEvent):void 
 		{
 			super.onCompClick(e);
@@ -111,6 +121,7 @@ package com.wm.comp
 			_data = null;
 			if (_list) 
 			{
+				_list.removeEventListener(WmCompEvt.CHANGE, onChange);
 				_list.dispose();
 				_list = null;
 			}

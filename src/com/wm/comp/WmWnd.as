@@ -10,6 +10,11 @@ package com.wm.comp
 	import flash.geom.Rectangle;
 	/**
 	 * 窗口
+	 * eg:
+	 * WmCompMgr.instance.init(stage);
+	 * WmCompMgr.instance.addAsset("def", new TextureAsset());
+	 * var wnd:TestWnd = new TestWnd("测试", 600, 480);
+	 * addChild(wnd);
 	 * @author wmtiger
 	 */
 	public class WmWnd extends WmComp 

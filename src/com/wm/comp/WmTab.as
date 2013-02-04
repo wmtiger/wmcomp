@@ -7,6 +7,20 @@ package com.wm.comp
 	import flash.events.MouseEvent;
 	/**
 	 * 标签
+	 * eg:
+	 * var tabBar:WmSprite = new WmSprite();
+	 * var tabContent1:WmPanel = new WmPanel(240, 180);
+	 * var tabContent2:WmPanel = new WmPanel(240, 180);
+	 * var tabContent3:WmPanel = new WmPanel(240, 180);
+	 * tabContent1.visible = tabContent2.visible = tabContent3.visible = false;
+	 * var tab:WmTab = new WmTab(tabBar);
+	 * tab.tabs = [ { id:0, name:"标签0", w:59, h:22, content:tabContent1 },
+	 * 			{ id:1, name:"标签1", w:59, h:22, content:tabContent2 },
+	 * 			{ id:2, name:"标签2", w:59, h:22, content:tabContent3 } ];
+	 * addElementToContent(tabContent1, 10, 171);
+	 * addElementToContent(tabContent2, 10, 171);
+	 * addElementToContent(tabContent3, 10, 171);
+	 * addElementToContent(tabBar, 10, 150);
 	 * @author wmtiger
 	 */
 	public class WmTab 

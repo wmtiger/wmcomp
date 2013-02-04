@@ -2,6 +2,12 @@ package com.wm.comp
 {
 	/**
 	 * 带文本的按钮
+	 * eg:
+	 * _okBtn = new WmLabelBtn("确定");
+	 * addElementToContent(_okBtn);
+	 * _okBtn.right = 10;
+	 * _okBtn.bottom = 120;
+	 * _okBtn.clickHandler = function ():void {}
 	 * @author wmtiger
 	 */
 	public class WmLabelBtn extends WmBtn 

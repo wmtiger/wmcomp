@@ -10,6 +10,10 @@ package com.wm.comp
 	import flash.geom.Rectangle;
 	/**
 	 * 滑块-横向
+	 * eg:
+	 * _slider = new WmSlider(100);
+	 * addElementToContent(_slider);
+	 * _slider.bottom = 50;
 	 * @author wmtiger
 	 */
 	public class WmSlider extends WmSprite 

@@ -17,6 +17,7 @@ package com.wm.comp
 	 * bar.barStyle = null;
 	 * bar.barStyle = "bar_xx";//或者下面的,如果这样，得继承，并且重新写style方法
 	 * addChild(bar);
+	 * pbar.flush( { process:30 } );//这个是刷新方法
 	 * @author wmtiger
 	 */
 	public class WmProcessBar extends WmSprite implements IProcessBar 

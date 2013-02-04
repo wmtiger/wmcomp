@@ -2,8 +2,13 @@ package com.wm.comp
 {
 	import com.wm.base.IScroll;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	/**
 	 * 带背景多行文本
+	 * eg:
+	 * _ta = new WmTextArea(200);
+	 * addElementToContent(_ta);
+	 * _ta.editable = true;
 	 * @author wmtiger
 	 */
 	public class WmTextArea extends WmTextInput implements IScroll
@@ -29,8 +34,14 @@ package com.wm.comp
 			flushInputHeight();
 			
 			_input.addEventListener(Event.CHANGE, onChange);
+			_input.addEventListener(Event.SCROLL, onTextScroll);
 			initScroll();
 			setScrollPosition();
+		}
+		
+		private function onTextScroll(e:Event):void 
+		{
+			flushScrollSliderY();
 		}
 		
 		private function onChange(e:Event):void 
@@ -94,16 +105,28 @@ package com.wm.comp
 		public function scrollUp(unit:int = 1):void 
 		{
 			_input.scrollV -= unit;
+			flushScrollSliderY();
 		}
 		
 		public function scrollDown(unit:int = 1):void 
 		{
 			_input.scrollV += unit;
+			flushScrollSliderY();
+		}
+		
+		private function flushScrollSliderY():void
+		{
+			_scroll.flushSliderBtnY((_input.scrollV - 1) / (_input.maxScrollV - 1));
 		}
 		
 		public function scrollPosition(p:Number):void 
 		{
-			
+			if (p == 1) 
+			{
+				_input.scrollV = _input.maxScrollV;
+				return;
+			}
+			_input.scrollV = int(_input.maxScrollV * p);
 		}
 		
 		public function chkScrollVisible():void 
@@ -182,6 +205,7 @@ package com.wm.comp
 		override public function dispose():void 
 		{
 			_input.removeEventListener(Event.CHANGE, onChange);
+			_input.removeEventListener(Event.SCROLL, onTextScroll);
 			if (_scroll) 
 			{
 				_scroll.dispose();

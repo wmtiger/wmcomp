@@ -3,6 +3,20 @@ package com.wm.comp
 	import flash.events.MouseEvent;
 	/**
 	 * 单选框-单行
+	 * eg:
+	 * _radioGroup = new WmRadioGroup();
+	 * 
+	 * _radio = new WmRadioBtn();
+	 * 	addElementToContent(_radio);
+	 * 	_radio.left = 200;
+ 	 * 	_radio.bottom = 0;
+ 	 * 	_radio.group = _radioGroup;
+ 	 * 	
+ 	 * 	_radio2 = new WmRadioBtn("测试2");
+ 	 * 	addElementToContent(_radio2);
+ 	 * 	_radio2.left = 300;
+ 	 * 	_radio2.bottom = 0;
+ 	 * 	_radio2.group = _radioGroup;
 	 * @author wmtiger
 	 */
 	public class WmRadioBtn extends WmChkBox 
