@@ -5,7 +5,7 @@ package com.wm.mgr
 	/**
 	 * 组件使用方法
 	 * WmCompMgr.instance.init(stage);//初始化stage
-	 * WmCompMgr.instance.addAsset("def", Assets);//初始化皮肤引用
+	 * WmCompMgr.instance.addAsset("def", new TextureAsset());//初始化皮肤引用
 	 * @author wmTiger
 	 */
 	public class WmCompMgr 
