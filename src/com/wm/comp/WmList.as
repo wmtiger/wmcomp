@@ -258,7 +258,8 @@ package com.wm.comp
 			_bottom = int(value);
 			if (this.parent) 
 			{
-				this.y = this.parent.height - this.listHeight - _bottom;
+				//这里由于displayobjectcontainer不支持sprHeight属性，只有写死，看看后期会不会出问题
+				this.y = this.parent["sprHeight"] - this.listHeight - _bottom;
 			}
 		}
 		
